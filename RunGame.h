@@ -6,7 +6,7 @@
 #include <string>
 #include <math.h>
 
-#include "globals.h"
+
 
 bool init();
 bool loadMedia();

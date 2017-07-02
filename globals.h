@@ -5,7 +5,6 @@
 
 #include "Asteroid.h"
 #include "Ship.h"
-#include "RunGame.h"
 
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
@@ -13,7 +12,7 @@ extern const int SCREEN_HEIGHT;
 extern const int MAX_N_ASTEROIDS;
 extern int N_ASTEROIDS;
 extern int A_Counter;
-extern Asteroid Asteroids[MAX_N_ASTEROIDS];
+extern Asteroid Asteroids[];
 
 extern Ship gShip;
 

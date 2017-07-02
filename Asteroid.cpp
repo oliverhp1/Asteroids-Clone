@@ -1,5 +1,5 @@
 #include "Asteroid.h"
-
+#include "globals.h"
 
 Asteroid::Asteroid(){
 	// initialize with random pos/vel.  if 	rand_i = 0: left;	 1: right 		2: bottom		 3: top.

@@ -7,8 +7,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "globals.h"
-
 class Asteroid{
 	public:
 		Asteroid();

@@ -6,15 +6,13 @@
 #include <string>
 #include <math.h>
 
-#include "RunGame.h"
-#include "globals.h"
 
 class Ship{
 	public:
 		Ship();
 		~Ship();
-		static const int SHIP_VEL = 10;
-		static const int SHIP_ANG_VEL = 5;
+		static const int SHIP_VEL = 12;
+		static const int SHIP_ANG_VEL = 8;
 
 		bool loadFromFile( std::string path );
 		void free();

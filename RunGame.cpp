@@ -1,4 +1,5 @@
-#include <RunGame.h>
+#include "RunGame.h"
+#include "globals.h"
 
 
 bool init(){
