@@ -13,6 +13,10 @@ public:
 
 	static const int bVelocity = 23;
 
+	double getAngle();
+	int getPosX();
+	int getPosY();
+
 	bool move();
 	void render();
 

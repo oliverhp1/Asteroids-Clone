@@ -28,7 +28,7 @@ Asteroid.o: Asteroid.cpp Asteroid.h Bullet.h
 Ship.o: Ship.cpp Ship.h
 	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) Ship.cpp
 
-RunGame.o: RunGame.cpp RunGame.h
+RunGame.o: RunGame.cpp RunGame.h Ship.h Bullet.h Asteroid.h
 	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) RunGame.cpp
 
 globals.o: globals.cpp globals.h
@@ -38,4 +38,4 @@ Bullet.o: Bullet.cpp Bullet.h globals.h
 	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) Bullet.cpp
 
 clean: 
-	rm -rf *.o hello
+	rm -rf *.o $(OBJ_NAME)

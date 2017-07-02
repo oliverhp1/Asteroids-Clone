@@ -41,11 +41,11 @@ bool init(){
 	return success;
 }
 
-bool loadMedia(){		// load global textures for asteroid and bullet. NONE OF THESE OBJECTS BEFORE CALLING THIS!
+bool loadMedia(){		// load global textures for asteroid and bullet. 
 	bool success = true;
 
 	// load ship!
-	if (!(gShip.loadFromFile("images/falcon.png"))){
+	if (!(gShip.loadFromFile("images/falcon_tiny.png"))){
 		printf("couldn't load ship\n");
 		success = false;
 	}
@@ -73,7 +73,7 @@ bool loadMedia(){		// load global textures for asteroid and bullet. NONE OF THES
 	}
 
 	// load global Bullet texture
-	std::string pathB = "images/bullet.png";
+	std::string pathB = "images/bullet_tiny.png";
 	loadSurface = IMG_Load(pathB.c_str());
 	if (loadSurface == NULL){
 		printf("load surface %s error: %s", "bullet.png", IMG_GetError() );
@@ -110,3 +110,59 @@ void close(){
 	SDL_Quit();
 	IMG_Quit();
 }
+
+bool collided(Bullet b1, Asteroid a1){
+	double angle = b1.getAngle();
+	angle *= (3.14/180);
+	int bTipX = b1.getPosX() + BulletHeight/2*sin(angle);	// Some geometry, draw out the bullet as a rectangle and find the tip position
+	int bTipY = b1.getPosY() - BulletHeight/2*cos(angle);
+	int deltaX = bTipX - a1.getPosX();
+	int deltaY = bTipY - a1.getPosY();
+	if (deltaX*deltaX + deltaY*deltaY <= AsteroidWidth*AsteroidHeight/4){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+bool Scollided(Asteroid a1){	// ship is global: gShip
+	double angle = gShip.getA();
+	angle *= (3.14/180);
+
+	int sWidth = gShip.getW();
+	int sHeight = gShip.getH();
+	int sCircleX = gShip.getX()-sHeight*2/15*sin(angle);
+	int sCircleY = gShip.getY()+sHeight*2/15*cos(angle);
+
+	int sTipYL = gShip.getY()-sHeight/2*cos(angle) - sWidth/11*sin(angle);
+	int sTipYR = gShip.getY()-sHeight/2*cos(angle) + sWidth/11*sin(angle);
+	int sTipXL = gShip.getX()-sWidth/11*cos(angle) + sHeight/2*sin(angle);
+	int sTipXR = gShip.getX()+sWidth/11*cos(angle) + sHeight/2*sin(angle);
+
+	int aX = a1.getPosX();
+	int aY = a1.getPosY();
+	
+	int dX = sCircleX - aX;
+	int dY = sCircleY - aY;
+
+	int dXL = sTipXL - aX;
+	int dXR = sTipXR - aX;
+	int dYL = sTipYL - aY;
+	int dYR = sTipYR - aY;
+
+	int Rs = sWidth/2;
+	int Ra = AsteroidWidth/2;
+
+	if (dX*dX + dY*dY < (Rs+Ra)*(Rs+Ra)){
+		return true;
+	}
+	else if ( (dXL*dXL + dYL*dYL < Ra*Ra) || (dXR*dXR + dYR*dYR < Ra*Ra) ){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+

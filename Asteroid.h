@@ -11,9 +11,12 @@ class Asteroid{
 	public:
 		Asteroid();
 		~Asteroid();
-//		void free();
 
+		static const int screenOffset = 50;
 		void move();
+		
+		int getPosX();
+		int getPosY();
 
 		void render();
 
@@ -24,6 +27,4 @@ class Asteroid{
 		int aVelX, aVelY;		// randomly generate x and y velocities independently. let bouncing take care of direction
 		int aOmega;			// randomly generate w to rotate at different speeds
 		double aAngle;
-
-//		int aWidth, aHeight;
 };

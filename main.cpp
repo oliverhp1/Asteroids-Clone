@@ -40,13 +40,30 @@ int main(int argc, char* args[]){
 				}
 
 				for (std::vector<Asteroid>::iterator it1 = Asteroids.begin(); it1 != Asteroids.end(); ){	// moves and tests if asteroids are shot
-					if (false){		// replace 'false' with collision detection
-						it1 = Asteroids.erase(it1);
-						N_ASTEROIDS--;
+					it1->move();
+					bool shot = false;
+
+					for (std::vector<Bullet>::iterator it0 = Fired.begin(); it0 != Fired.end(); ){
+						if (collided(*it0, *it1)){		// dereference iterators before sticking into function
+							it0 = Fired.erase(it0);
+							it1 = Asteroids.erase(it1);
+							shot = true;
+							N_ASTEROIDS--;
+							break;
+						}
+						else{
+							++it0;
+						}
 					}
-					else{
-						it1->move();
-						++it1;
+					
+					if (Scollided(*it1)){
+						SDL_Delay(1000);
+						quit = true;
+						break;
+					}
+	
+					if (!shot){
+						++it1;		// if shot, iterator already advanced.
 					}
 				}
 

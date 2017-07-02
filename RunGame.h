@@ -6,8 +6,13 @@
 #include <string>
 #include <math.h>
 
+#include "Asteroid.h"
+#include "Bullet.h"
+#include "Ship.h"
 
 
 bool init();
 bool loadMedia();
 void close();
+bool collided(Bullet, Asteroid);
+bool Scollided(Asteroid);

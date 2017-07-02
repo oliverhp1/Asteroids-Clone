@@ -28,6 +28,17 @@ void Bullet::free(){
 }
 */
 
+double Bullet::getAngle(){
+	return bAngle;
+}
+
+int Bullet::getPosX(){
+	return bPosX;
+}
+
+int Bullet::getPosY(){
+	return bPosY;
+}
 
 bool Bullet::move(){		// make this a bool, return whether it's out of the screen!
 	bool gone = false;
@@ -45,6 +56,7 @@ bool Bullet::move(){		// make this a bool, return whether it's out of the screen
 
 void Bullet::render(){
 	SDL_Rect renderingRect = {bPosX - BulletWidth/2, bPosY - BulletHeight/2, BulletWidth, BulletHeight};
+
 	SDL_RenderCopyEx( gRenderer, BulletTexture, NULL, &renderingRect, bAngle, NULL, SDL_FLIP_NONE);
 }
 

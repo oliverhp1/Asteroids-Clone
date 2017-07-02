@@ -6,31 +6,35 @@ Asteroid::Asteroid(){
 	int rand_i = rand()%4;
 	switch (rand_i){
 		case 0:
-			aPosX = 0; aPosY = rand()%SCREEN_HEIGHT; break;
+			aPosX = -1*screenOffset; aPosY = rand()%SCREEN_HEIGHT; break;
 		case 1:
-			aPosX = SCREEN_WIDTH; aPosY = rand()%SCREEN_HEIGHT; break;
+			aPosX = SCREEN_WIDTH+screenOffset; aPosY = rand()%SCREEN_HEIGHT; break;
 		case 2:
-			aPosY = 0; aPosX = rand()%SCREEN_WIDTH; break;
+			aPosY = -1*screenOffset; aPosX = rand()%SCREEN_WIDTH; break;
 		case 3:
-			aPosY = SCREEN_HEIGHT; aPosX = rand()%SCREEN_WIDTH; break;
+			aPosY = SCREEN_HEIGHT+screenOffset; aPosX = rand()%SCREEN_WIDTH; break;
 		default:	// shouldn't happen
-			aPosX = 0; aPosY = 0; break;
+			aPosX = -1*screenOffset; aPosY = -1*screenOffset; break;
 	}
 	
-	aVelX = rand()%(SCREEN_WIDTH/100)+2;
-	aVelY = rand()%(SCREEN_HEIGHT/100)+2;
+	aVelX = rand()%(SCREEN_WIDTH/200)+1;
+	aVelY = rand()%(SCREEN_HEIGHT/200)+1;
 	aOmega = rand()%10;		// but angles are in radians, so approximately divide by 100
 	if (rand_i < 2){
 		aOmega *= -1;		// rotation in both directions
 	}
 	aAngle = 0;
-//	aWidth = AsteroidWidth;
-//	aHeight = AsteroidHeight;
-
-//	aTexture = AsteroidTexture;
 }
 
 Asteroid::~Asteroid(){
+}
+
+int Asteroid::getPosX(){
+	return aPosX;
+}
+
+int Asteroid::getPosY(){
+	return aPosY;
 }
 
 /*
@@ -74,10 +78,10 @@ void Asteroid::move(){
 	aPosX += aVelX;
 	aAngle += aOmega;
 
-	if ( (aPosX < 0) || (aPosX > SCREEN_WIDTH) ){	// elastic collisions? or we can just get rid of them.
+	if ( (aPosX < -1*screenOffset) || (aPosX > SCREEN_WIDTH+screenOffset) ){	// elastic collisions? or we can just get rid of them.
 		aVelX *= -1;
 	}
-	if ( (aPosY < 0) || (aPosY > SCREEN_HEIGHT) ){
+	if ( (aPosY < -1*screenOffset) || (aPosY > SCREEN_HEIGHT+screenOffset) ){
 		aVelY *= -1;
 	}
 }

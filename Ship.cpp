@@ -89,7 +89,7 @@ void Ship::move(){
 }
 
 void Ship::render(){
-	SDL_Rect renderingRect = {sPosX-sWidth/2, sPosY-sHeight/2, sWidth, sHeight};	// left bound, lower bound, width, height
+	SDL_Rect renderingRect = {sPosX-sWidth/2, sPosY-sHeight/2, sWidth, sHeight};	// left bound, lower bound, width, height. add 2/15 of H to center on circle of ship
 	SDL_RenderCopyEx( gRenderer, sTexture, NULL, &renderingRect, angle, NULL, SDL_FLIP_NONE);
 }
 
@@ -105,4 +105,10 @@ double Ship::getA(){
 	return angle;
 }
 
+int Ship::getW(){
+	return sWidth;
+}
 
+int Ship::getH(){
+	return sHeight;
+}
