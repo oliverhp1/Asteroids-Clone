@@ -9,6 +9,7 @@
 #include "Ship.h"
 #include "RunGame.h"
 #include "globals.h"
+#include "Bullet.h"
 
 
 int main(int argc, char* args[]){
@@ -23,7 +24,6 @@ int main(int argc, char* args[]){
 			// MAIN LOOP FLAG
 			bool quit = false;
 			SDL_Event e;
-			bool is_shot[MAX_N_ASTEROIDS] = {false};	// each entry corresponds to an asteroid; when one is shot we use this to reinitialize
 
 			while (!quit){
 				// queue
@@ -33,14 +33,29 @@ int main(int argc, char* args[]){
 					}
 					gShip.handleEvent(e);
 				}
-				
-				for (int i = 0; i < MAX_N_ASTEROIDS; i++){
-					if (is_shot[i]){
-						Asteroids[i] = Asteroid();
-						A_Counter++;
+
+				if (N_ASTEROIDS < MAX_N_ASTEROIDS){
+					Asteroids.push_back(Asteroid());
+					N_ASTEROIDS++;
+				}
+
+				for (std::vector<Asteroid>::iterator it1 = Asteroids.begin(); it1 != Asteroids.end(); ){	// moves and tests if asteroids are shot
+					if (false){		// replace 'false' with collision detection
+						it1 = Asteroids.erase(it1);
+						N_ASTEROIDS--;
 					}
 					else{
-						Asteroids[i].move();
+						it1->move();
+						++it1;
+					}
+				}
+
+				for (std::vector<Bullet>::iterator it2 = Fired.begin(); it2 != Fired.end(); ){	// moves/deletes bullets
+					if ( it2->move() ){
+						it2 = Fired.erase(it2);
+					}
+					else{
+						++it2;
 					}
 				}
 
@@ -48,9 +63,13 @@ int main(int argc, char* args[]){
 
 				SDL_RenderClear(gRenderer);		// clear screen
 
-				for (int j = 0; j < MAX_N_ASTEROIDS; j++){
-					Asteroids[j].render();
+				for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ++rock){
+					rock->render();
 				}
+				for (std::vector<Bullet>::iterator bullet = Fired.begin(); bullet != Fired.end(); ++bullet){
+					bullet->render();
+				}
+
 				gShip.render();
 				SDL_RenderPresent(gRenderer);	// update screen
 			}

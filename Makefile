@@ -10,19 +10,19 @@ LINKER_FLAGS = -lSDL2 -lSDL2_image
 #OBJ_NAME specifies the name of our exectuable
 OBJ_NAME = game
 
-OBJS = main.o Asteroid.o Ship.o RunGame.o globals.o
+OBJS = main.o Asteroid.o Ship.o RunGame.o globals.o Bullet.o
 
 
 
-all : $(OBJ_NAME)
+all: $(OBJ_NAME)
 
 $(OBJ_NAME): $(OBJS)
 	$(CC) $(LINKER_FLAGS) $(OBJS) -o $(OBJ_NAME)
 
-main.o: main.cpp
+main.o: main.cpp globals.h
 	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) main.cpp
 
-Asteroid.o: Asteroid.cpp globals.h Asteroid.h
+Asteroid.o: Asteroid.cpp Asteroid.h Bullet.h
 	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) Asteroid.cpp
 
 Ship.o: Ship.cpp Ship.h
@@ -33,6 +33,9 @@ RunGame.o: RunGame.cpp RunGame.h
 
 globals.o: globals.cpp globals.h
 	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) globals.cpp
+
+Bullet.o: Bullet.cpp Bullet.h globals.h
+	$(CC) $(COMPILER_FLAGS) $(LINKER_FLAGS) Bullet.cpp
 
 clean: 
 	rm -rf *.o hello

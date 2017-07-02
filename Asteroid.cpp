@@ -16,7 +16,7 @@ Asteroid::Asteroid(){
 		default:	// shouldn't happen
 			aPosX = 0; aPosY = 0; break;
 	}
-	aTexture = NULL;
+	
 	aVelX = rand()%(SCREEN_WIDTH/100)+2;
 	aVelY = rand()%(SCREEN_HEIGHT/100)+2;
 	aOmega = rand()%10;		// but angles are in radians, so approximately divide by 100
@@ -24,21 +24,28 @@ Asteroid::Asteroid(){
 		aOmega *= -1;		// rotation in both directions
 	}
 	aAngle = 0;
-	N_ASTEROIDS++;
+//	aWidth = AsteroidWidth;
+//	aHeight = AsteroidHeight;
+
+//	aTexture = AsteroidTexture;
 }
 
 Asteroid::~Asteroid(){
-	N_ASTEROIDS--;
-	free();
 }
 
+/*
 void Asteroid::free(){
 	if (aTexture != NULL){
+		N_ASTEROIDS--;
 		SDL_DestroyTexture(aTexture);
 		aTexture = NULL;
 	}
 }
+*/
 
+
+
+/*
 bool Asteroid::loadFromFile(std::string path){
 	free();
 	SDL_Texture* newTexture = NULL;
@@ -60,6 +67,7 @@ bool Asteroid::loadFromFile(std::string path){
 	aTexture = newTexture;
 	return aTexture != NULL;
 }
+*/
 
 void Asteroid::move(){
 	aPosY -= aVelY;
@@ -75,7 +83,7 @@ void Asteroid::move(){
 }
 
 void Asteroid::render(){
-	SDL_Rect renderRect = {aPosX-aWidth/2, aPosY-aHeight/2, aWidth, aHeight};
-	SDL_RenderCopyEx(gRenderer, aTexture, NULL, &renderRect, aAngle, NULL, SDL_FLIP_NONE);
+	SDL_Rect renderRect = {aPosX-AsteroidWidth/2, aPosY-AsteroidHeight/2, AsteroidWidth, AsteroidHeight};
+	SDL_RenderCopyEx(gRenderer, AsteroidTexture, NULL, &renderRect, aAngle, NULL, SDL_FLIP_NONE);
 }
 

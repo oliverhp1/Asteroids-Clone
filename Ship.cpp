@@ -25,6 +25,8 @@ bool Ship::loadFromFile(std::string path){
 		printf("load %s error: %s\n", path.c_str(), IMG_GetError() );
 	}
 	else{
+		SDL_SetColorKey( loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 0, 0, 0) );
+
 		sWidth = loadSurface->w;
 		sHeight = loadSurface->h;
 
@@ -56,6 +58,7 @@ void Ship::handleEvent(SDL_Event &e){
 			case SDLK_UP: sVel -= SHIP_VEL; break;		// seems in SDL the y motion direction is flipped.. but not the x
 			case SDLK_LEFT: sOmega -= SHIP_ANG_VEL; break;
 			case SDLK_RIGHT: sOmega += SHIP_ANG_VEL; break;
+			case SDLK_SPACE: Fired.push_back(Bullet()); break;
 		}
 	}
 	else if (e.type == SDL_KEYUP && e.key.repeat == 0){
@@ -89,3 +92,17 @@ void Ship::render(){
 	SDL_Rect renderingRect = {sPosX-sWidth/2, sPosY-sHeight/2, sWidth, sHeight};	// left bound, lower bound, width, height
 	SDL_RenderCopyEx( gRenderer, sTexture, NULL, &renderingRect, angle, NULL, SDL_FLIP_NONE);
 }
+
+int Ship::getX(){
+	return sPosX;
+}
+
+int Ship::getY(){
+	return sPosY;
+}
+
+double Ship::getA(){
+	return angle;
+}
+
+

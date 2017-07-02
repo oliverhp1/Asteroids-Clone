@@ -5,14 +5,17 @@
 #include <stdio.h>
 #include <string>
 #include <math.h>
+#include <vector>
+
+#include "Bullet.h"
 
 
 class Ship{
 	public:
 		Ship();
 		~Ship();
-		static const int SHIP_VEL = 12;
-		static const int SHIP_ANG_VEL = 8;
+		static const int SHIP_VEL = 10;
+		static const int SHIP_ANG_VEL = 5;
 
 		bool loadFromFile( std::string path );
 		void free();
@@ -21,6 +24,10 @@ class Ship{
 		void move();
 
 		void render();	// use class attributes to render
+		
+		int getX();
+		int getY();
+		double getA();
 
 	private:
 		SDL_Texture* sTexture;

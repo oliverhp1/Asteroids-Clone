@@ -14,7 +14,7 @@ bool init(){
 		{
 			printf( "Warning: Linear texture filtering not enabled!" );
 		}
-		gWindow = SDL_CreateWindow("Bloody Big Ship", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		gWindow = SDL_CreateWindow("Asteroids?!", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL){
 			printf("couldn't make window error: %s\n", SDL_GetError() );
 			success = false;
@@ -41,7 +41,7 @@ bool init(){
 	return success;
 }
 
-bool loadMedia(){
+bool loadMedia(){		// load global textures for asteroid and bullet. NONE OF THESE OBJECTS BEFORE CALLING THIS!
 	bool success = true;
 
 	// load ship!
@@ -50,27 +50,63 @@ bool loadMedia(){
 		success = false;
 	}
 
-	for (int k = 0; k < MAX_N_ASTEROIDS; k++){
-		if (!(Asteroids[k].loadFromFile("images/asteroid.png"))){
-			printf("couldn't load asteroid\n");
+	// load Global Asteroid texture
+	std::string pathA = "images/asteroid.png";
+	SDL_Surface* loadSurface = IMG_Load(pathA.c_str());
+	if (loadSurface == NULL){
+		printf("load surface %s error: %s", "asteroid.png", IMG_GetError() );
+		success = false;
+	}
+	else{
+		SDL_SetColorKey(loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 00,00,00) );
+
+		AsteroidWidth = loadSurface->w;
+		AsteroidHeight = loadSurface->h;
+
+		AsteroidTexture = SDL_CreateTextureFromSurface(gRenderer,loadSurface);
+		if (AsteroidTexture == NULL){
+			printf("create texture error: %s", SDL_GetError() );
 			success = false;
 		}
+		SDL_FreeSurface(loadSurface);
+		loadSurface = NULL;
 	}
+
+	// load global Bullet texture
+	std::string pathB = "images/bullet.png";
+	loadSurface = IMG_Load(pathB.c_str());
+	if (loadSurface == NULL){
+		printf("load surface %s error: %s", "bullet.png", IMG_GetError() );
+		success = false;
+	}
+	else{
+		SDL_SetColorKey(loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 00,00,00) );
+
+		BulletWidth = loadSurface->w;
+		BulletHeight = loadSurface->h;
+
+		BulletTexture = SDL_CreateTextureFromSurface(gRenderer,loadSurface);
+		if (BulletTexture == NULL){
+			printf("create texture error: %s", SDL_GetError() );
+			success = false;
+		}
+		SDL_FreeSurface(loadSurface);
+		loadSurface = NULL;
+	}
+
 	return success;
 }
 
 void close(){
 	gShip.free();
 
-	for (int n = 0; n < MAX_N_ASTEROIDS; n++){
-		Asteroids[n].free();
-	}	
-
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
 	gRenderer = NULL;
-
+	
+	SDL_DestroyTexture(AsteroidTexture);
+	SDL_DestroyTexture(BulletTexture);
 	SDL_Quit();
 	IMG_Quit();
 }
