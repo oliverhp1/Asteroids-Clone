@@ -24,6 +24,11 @@ Asteroid::Asteroid(){
 		aOmega *= -1;		// rotation in both directions
 	}
 	aAngle = 0;
+	
+	// now for the scaling
+	int nScale = rand()%6+1;	//multiply by this and divide by 4
+	AsteroidWidth = AsteroidWidth0*nScale/4;
+	AsteroidHeight = AsteroidHeight0*nScale/4;
 }
 
 Asteroid::~Asteroid(){
@@ -35,6 +40,14 @@ int Asteroid::getPosX(){
 
 int Asteroid::getPosY(){
 	return aPosY;
+}
+
+int Asteroid::getW(){
+	return AsteroidWidth;
+}
+
+int Asteroid::getH(){
+	return AsteroidHeight;
 }
 
 void Asteroid::move(){

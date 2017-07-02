@@ -62,8 +62,8 @@ bool loadMedia(){		// load global textures for asteroid and bullet.
 	else{
 		SDL_SetColorKey(loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 00,00,00) );
 
-		AsteroidWidth = loadSurface->w;
-		AsteroidHeight = loadSurface->h;
+		AsteroidWidth0 = loadSurface->w;
+		AsteroidHeight0 = loadSurface->h;
 
 		AsteroidTexture = SDL_CreateTextureFromSurface(gRenderer,loadSurface);
 		if (AsteroidTexture == NULL){
@@ -136,7 +136,7 @@ bool collided(Bullet b1, Asteroid a1){
 	int bTipY = b1.getPosY() - BulletHeight/2*cos(angle);
 	int deltaX = bTipX - a1.getPosX();
 	int deltaY = bTipY - a1.getPosY();
-	if (deltaX*deltaX + deltaY*deltaY <= AsteroidWidth*AsteroidHeight/4){
+	if (deltaX*deltaX + deltaY*deltaY <= (a1.getW())*(a1.getH())/4){
 		return true;
 	}
 	else{
@@ -170,7 +170,7 @@ bool Scollided(Asteroid a1){	// ship is global: gShip
 	int dYR = sTipYR - aY;
 
 	int Rs = sWidth/2;
-	int Ra = AsteroidWidth/2;
+	int Ra = (a1.getW())/2;
 
 	if (dX*dX + dY*dY < (Rs+Ra)*(Rs+Ra)){
 		return true;

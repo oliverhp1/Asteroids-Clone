@@ -16,7 +16,7 @@ extern int N_ASTEROIDS;
 extern int score;
 extern std::vector<Asteroid> Asteroids;
 
-extern int AsteroidWidth, AsteroidHeight, BulletWidth, BulletHeight;
+extern int AsteroidWidth0, AsteroidHeight0, BulletWidth, BulletHeight;
 
 
 extern SDL_Texture* AsteroidTexture;

@@ -8,8 +8,8 @@ int N_ASTEROIDS = 0;
 int score = 0;
 std::vector<Asteroid> Asteroids;
 
-int AsteroidWidth = 0;
-int AsteroidHeight = 0;
+int AsteroidWidth0 = 0;
+int AsteroidHeight0 = 0;
 int BulletWidth = 0;
 int BulletHeight = 0;
 

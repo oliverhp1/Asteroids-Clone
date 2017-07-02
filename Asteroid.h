@@ -17,6 +17,8 @@ class Asteroid{
 		
 		int getPosX();
 		int getPosY();
+		int getW();
+		int getH();
 
 		void render();
 
@@ -26,4 +28,5 @@ class Asteroid{
 		int aVelX, aVelY;		// randomly generate x and y velocities independently. let bouncing take care of direction
 		int aOmega;			// randomly generate w to rotate at different speeds
 		double aAngle;
+		int AsteroidWidth, AsteroidHeight;
 };
