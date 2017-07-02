@@ -1,5 +1,5 @@
 #OBJS specifies which files to compile as part of project
-OBJS = Ship.cpp 
+OBJS = Asteroid.cpp 
 
 #CC specifies the compiler
 CC = g++
@@ -12,7 +12,7 @@ COMPILER_FLAGS = -Wall
 LINKER_FLAGS = -lSDL2 -lSDL2_image
 
 #OBJ_NAME specifies the name of our executable
-OBJ_NAME = Ship
+OBJ_NAME = Asteroid
 
 #This is the target that compiles our executable
 all: $(OBJS)
