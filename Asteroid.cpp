@@ -37,42 +37,6 @@ int Asteroid::getPosY(){
 	return aPosY;
 }
 
-/*
-void Asteroid::free(){
-	if (aTexture != NULL){
-		N_ASTEROIDS--;
-		SDL_DestroyTexture(aTexture);
-		aTexture = NULL;
-	}
-}
-*/
-
-
-
-/*
-bool Asteroid::loadFromFile(std::string path){
-	free();
-	SDL_Texture* newTexture = NULL;
-	SDL_Surface* loadSurface = IMG_Load(path.c_str() );
-	if (loadSurface == NULL){
-		printf("load surface %s error: %s", path.c_str(), IMG_GetError() );
-	}
-	else{
-		aWidth = loadSurface->w;
-		aHeight = loadSurface->h;
-
-		newTexture = SDL_CreateTextureFromSurface(gRenderer,loadSurface);
-		if (newTexture == NULL){
-			printf("create texture error: %s", SDL_GetError() );
-		}
-		SDL_FreeSurface(loadSurface);
-	}
-
-	aTexture = newTexture;
-	return aTexture != NULL;
-}
-*/
-
 void Asteroid::move(){
 	aPosY -= aVelY;
 	aPosX += aVelX;

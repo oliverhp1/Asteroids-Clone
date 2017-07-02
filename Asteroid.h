@@ -22,7 +22,6 @@ class Asteroid{
 
 
 	private:
-//		SDL_Texture* aTexture;
 		int aPosX, aPosY;
 		int aVelX, aVelY;		// randomly generate x and y velocities independently. let bouncing take care of direction
 		int aOmega;			// randomly generate w to rotate at different speeds

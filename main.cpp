@@ -24,6 +24,7 @@ int main(int argc, char* args[]){
 			// MAIN LOOP FLAG
 			bool quit = false;
 			SDL_Event e;
+			SDL_Rect backgroundRect = {0,0,SCREEN_WIDTH,SCREEN_HEIGHT};
 
 			while (!quit){
 				// queue
@@ -80,6 +81,8 @@ int main(int argc, char* args[]){
 
 				SDL_RenderClear(gRenderer);		// clear screen
 
+				SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect); 
+
 				for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ++rock){
 					rock->render();
 				}
@@ -89,6 +92,7 @@ int main(int argc, char* args[]){
 
 				gShip.render();
 				SDL_RenderPresent(gRenderer);	// update screen
+
 			}
 		}
 	}

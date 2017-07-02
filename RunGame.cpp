@@ -2,6 +2,8 @@
 #include "globals.h"
 
 
+
+
 bool init(){
 	bool success = true;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0){
@@ -94,6 +96,22 @@ bool loadMedia(){		// load global textures for asteroid and bullet.
 		loadSurface = NULL;
 	}
 
+	// load global Background texture
+	std::string pathC = "images/black_medium.png";
+	loadSurface = IMG_Load(pathC.c_str() );
+	if (loadSurface == NULL){
+		printf("load background error: %s\n", IMG_GetError() );
+		success = false;
+	}
+	else{
+		Background = SDL_CreateTextureFromSurface(gRenderer, loadSurface);
+		if (Background == NULL){
+			printf("background texture error: %s", SDL_GetError() );
+			success = false;
+		}
+		SDL_FreeSurface(loadSurface);
+		loadSurface = NULL;
+	}
 	return success;
 }
 
