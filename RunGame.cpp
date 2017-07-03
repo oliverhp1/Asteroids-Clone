@@ -51,13 +51,13 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	bool success = true;
 
 	laserFont = TTF_OpenFont("fonts/laser.ttf", 48);
-	if ( (laserFont == NULL) || (bloodyFont == NULL) ){
+	if ( (laserFont == NULL) ){
 		printf("couldn't load laser font, error: %s\n", TTF_GetError() );
 		success = 0;
 	}
 
 	bloodyFont = TTF_OpenFont("fonts/bloody.ttf", 60);
-	if ( (laserFont == NULL) || (bloodyFont == NULL) ){
+	if ((bloodyFont == NULL) ){
 		printf("couldn't load bloody font, error: %s\n", TTF_GetError() );
 		success = 0;
 	}
