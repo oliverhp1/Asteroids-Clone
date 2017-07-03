@@ -150,9 +150,10 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	return success;
 }
 
-int handleMenu(){
+int handleMenu(){		// return 1: play, 2: instructions, 3: quit.
 	int mX = 0;
 	int mY = 0;		// mouse coordinates
+	SDL_Event e;
 	bool overPlay = false;
 	bool overInstruct = false;
 	bool overQuit = false;
@@ -169,7 +170,6 @@ int handleMenu(){
 		overQuit = true;
 	}
 
-	
 	SDL_RenderCopyEx(gRenderer, TextTextures[Main_Asteroids], NULL, &TextTexture_R[Main_Asteroids], 0, NULL, SDL_FLIP_NONE);
 
 	if (!overPlay){
@@ -193,8 +193,23 @@ int handleMenu(){
 		SDL_RenderCopyEx(gRenderer, TextTextures[Main_Quit_H], NULL, &TextTexture_R[Main_Quit_H], 0, NULL, SDL_FLIP_NONE);
 	}
 
-	return 0;	// return 1 if play, return 2 if instructions, return 3 if quit
-
+	if ( (SDL_PollEvent( &e ) == 0) || (e.type != SDL_MOUSEBUTTONDOWN) || (e.button.button != SDL_BUTTON_LEFT) ){
+		return 0;
+	}
+	else{	// if we get here then the left button was pressed
+		if (overQuit){
+			return 3;
+		}
+		else if (overInstruct){
+			return 2;
+		}
+		else if (overQuit){
+			return 1;
+		}
+		else{	// not over a button
+			return 0;
+		}
+	}
 }
 
 void handleDeath(){
