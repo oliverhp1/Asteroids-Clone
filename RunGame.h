@@ -18,8 +18,8 @@ bool loadMedia();
 // all of these for the menus
 void handleMenu();
 void handleDeath();
-bool loadMainMenu();
-bool loadDeathScreen();
+void loadMainMenu();
+void loadDeathScreen();
 
 void close();
 bool collided(Bullet, Asteroid);

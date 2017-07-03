@@ -31,6 +31,13 @@ int main(int argc, char* args[]){
 
 			while (!quit){
 				while (showMenu){		// main menu
+					if (SDL_PollEvent( &e ) != 0){
+						if (e.type == SDL_QUIT){
+							quit = true;
+							break;
+						}
+					}
+				
 					SDL_RenderClear(gRenderer);
 					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
 					handleMenu();

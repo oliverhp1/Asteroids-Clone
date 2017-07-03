@@ -143,15 +143,9 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	}
 
 	// load main menu and death menu textures
-	if (!loadMainMenu()){
-		printf("error loading main menu textures");
-		success = false;
-	}
+	loadMainMenu();
 
-	if (!loadDeathScreen()){
-		printf("error loading death screen textures");
-		success = false;
-	}
+	loadDeathScreen();
 
 	return success;
 }
