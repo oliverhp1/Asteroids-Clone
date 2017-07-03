@@ -57,7 +57,7 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 		success = 0;
 	}
 
-	bloodyFontB = TTF_OpenFont("fonts/bloody.ttf", SCREEN_HEIGHT/8);
+	bloodyFontB = TTF_OpenFont("fonts/bloody.ttf", SCREEN_HEIGHT/6);
 	if ((bloodyFontB == NULL) ){
 		printf("couldn't load bloody font, error: %s\n", TTF_GetError() );
 		success = 0;
@@ -69,7 +69,7 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 		success = 0;
 	}
 
-	bloodyFont = TTF_OpenFont("fonts/bloody.ttf", SCREEN_HEIGHT/10);
+	bloodyFont = TTF_OpenFont("fonts/bloody.ttf", SCREEN_HEIGHT/11);
 	if ((bloodyFont == NULL) ){
 		printf("couldn't load bloody font, error: %s\n", TTF_GetError() );
 		success = 0;
@@ -300,31 +300,31 @@ void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles
 void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, leave out the score til game over.
 	SDL_Surface* tempSurface1 = NULL;
 	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "YOU HAVE DIED", deathColor );
-	SDL_Rect tempRect = {SCREEN_WIDTH/2 - 2*(tempSurface1->w)/3, SCREEN_HEIGHT/8, tempSurface1->w, tempSurface1->h};
+	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/8, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Dead] = tempRect;
 	TextTextures[Death_Dead] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
 
 	tempSurface1 = TTF_RenderText_Solid( bloodyFont, "PLAY AGAIN", deathColor );
-	tempRect = {SCREEN_WIDTH/5, 4*SCREEN_HEIGHT/5, tempSurface1->w, tempSurface1->h};
+	tempRect = {SCREEN_WIDTH/5, 3*SCREEN_HEIGHT/5, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Play] = tempRect;
 	TextTextures[Death_Play] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
 	
 	tempSurface1 = TTF_RenderText_Solid( bloodyFont, "PLAY AGAIN", mainColor );
-	tempRect = {SCREEN_WIDTH/5+5, 4*SCREEN_HEIGHT/5-5, tempSurface1->w, tempSurface1->h};
+	tempRect = {SCREEN_WIDTH/5+5, 3*SCREEN_HEIGHT/5-5, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Play_H] = tempRect;
 	TextTextures[Death_Play_H] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
 	
 	tempSurface1 = TTF_RenderText_Solid( bloodyFont, "Quit", deathColor );
-	tempRect = {SCREEN_WIDTH/2, 4*SCREEN_HEIGHT/5, tempSurface1->w, tempSurface1->h};
+	tempRect = {7*SCREEN_WIDTH/10, 3*SCREEN_HEIGHT/5, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Quit] = tempRect;
 	TextTextures[Death_Quit] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
 
 	tempSurface1 = TTF_RenderText_Solid( bloodyFont, "Quit", mainColor );
-	tempRect = {SCREEN_WIDTH/2+5, 4*SCREEN_HEIGHT/5-5, tempSurface1->w, tempSurface1->h};
+	tempRect = {7*SCREEN_WIDTH/10+5, 3*SCREEN_HEIGHT/5-5, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Quit_H] = tempRect;
 	TextTextures[Death_Quit_H] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);

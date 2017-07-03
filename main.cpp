@@ -48,7 +48,7 @@ int main(int argc, char* args[]){
 					SDL_RenderClear(gRenderer);
 					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
 					int button = handleDeathDisp();
-					if (SDL_PollEvent( &e ) != 0){
+					while (SDL_PollEvent( &e ) != 0){
 						switch (handleMenuClick(e, button)){		//1: play, 2: main menu, 3: quit
 							case 1: showDeath = false; break;
 							case 2: showDeath = false; showMenu = true; break;
