@@ -16,7 +16,7 @@ bool init();
 bool loadMedia();
 
 // all of these for the menus
-void handleMenu();
+int handleMenu();
 void handleDeath();
 void loadMainMenu();
 void loadDeathScreen();
