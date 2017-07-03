@@ -47,7 +47,7 @@ int main(int argc, char* args[]){
 				}
 				if (inferno){
 					SDL_RenderClear(gRenderer);
-					handleInferno();
+					handleInferno(backgroundRect);
 					SDL_RenderPresent(gRenderer);
 					SDL_Delay(2000);
 					AsteroidVelocityScale = 5;

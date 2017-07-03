@@ -291,7 +291,7 @@ int handleDeathDisp(){
 	return res;
 }
 
-void handleInferno(){
+void handleInferno(backgroundRect){
 	SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
 	SDL_RenderCopyEx(gRenderer, TextTextures[Instructions_Screen], NULL, &TextTexture_R[Instructions_Screen], 0, NULL, SDL_FLIP_NONE);					
 }
