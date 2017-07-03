@@ -14,7 +14,7 @@ class Ship{
 	public:
 		Ship();
 		~Ship();
-		static const int SHIP_VEL = 13;
+		static const int SHIP_VEL = 15;
 		static const int SHIP_ANG_VEL = 10;
 
 		bool loadFromFile( std::string path );

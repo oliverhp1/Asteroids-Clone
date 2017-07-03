@@ -65,6 +65,12 @@ int main(int argc, char* args[]){
 					continue;
 				}
 
+				// raise difficulty if score is mounting
+				if (score%10==0){
+					MAX_N_ASTEROIDS += 3;
+					AsteroidVelocityScale++;
+				}
+
 				while (SDL_PollEvent( &e ) != 0){		// gameplay screen
 					if(e.type == SDL_QUIT){
 						quit = true;

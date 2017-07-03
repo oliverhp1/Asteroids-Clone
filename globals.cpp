@@ -3,8 +3,9 @@
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
-const int MAX_N_ASTEROIDS = 10;
+int MAX_N_ASTEROIDS = 8;
 int N_ASTEROIDS = 0;
+int AsteroidVelocityScale = 1;
 int score = 0;
 std::vector<Asteroid> Asteroids;
 
@@ -24,8 +25,8 @@ std::vector<Bullet> Fired;
 SDL_Renderer* gRenderer = NULL;
 SDL_Window* gWindow = NULL;
 
-SDL_Texture* TextTextures[13] = {NULL}; 
-SDL_Rect TextTexture_R[13] = {};
+SDL_Texture* TextTextures[15] = {NULL}; 
+SDL_Rect TextTexture_R[15] = {};
 
 TTF_Font* laserFontB = NULL;
 TTF_Font* bloodyFontB = NULL;

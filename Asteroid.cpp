@@ -17,9 +17,9 @@ Asteroid::Asteroid(){
 			aPosX = -1*screenOffset; aPosY = -1*screenOffset; break;
 	}
 	
-	aVelX = rand()%(SCREEN_WIDTH/200)+1;
-	aVelY = rand()%(SCREEN_HEIGHT/200)+1;
-	aOmega = rand()%10;		// but angles are in radians, so approximately divide by 100
+	aVelX = (rand()%(SCREEN_WIDTH/200)+1) * AsteroidVelocityScale;
+	aVelY = (rand()%(SCREEN_HEIGHT/200)+1) * AsteroidVelocityScale;
+	aOmega = (rand()%10) * AsteroidVelocityScale;		// but angles are in radians, so approximately divide by 100
 	if (rand_i < 2){
 		aOmega *= -1;		// rotation in both directions
 	}

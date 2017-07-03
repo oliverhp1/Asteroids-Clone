@@ -2,7 +2,7 @@
 #include "globals.h"
 
 
-enum TextTexture_I {Main_Asteroids, Main_Play, Main_Play_H, Main_Instruct, Main_Instruct_H, Main_Quit, Main_Quit_H, Death_Dead, Death_Score, Death_Play, Death_Play_H, Death_Quit, Death_Quit_H};
+enum TextTexture_I {Main_Asteroids, Main_Play, Main_Play_H, Main_Instruct, Main_Instruct_H, Main_Quit, Main_Quit_H, Death_Dead, Death_Score, Death_Play, Death_Play_H, Death_Quit, Death_Quit_H, Death_Return, Death_Return_H};
 
 
 bool init(){
@@ -229,6 +229,7 @@ int handleDeathDisp(){
 	int mX = 0;
 	int mY = 0;
 	bool overPlay = false;
+	bool overReturn = false;
 	bool overQuit = false;
 
 	int res = 0;	// 3 for quit, 1 for play (so we can reuse the handleMenuClick method)
@@ -237,6 +238,10 @@ int handleDeathDisp(){
 	if ( (mX > TextTexture_R[Death_Play].x) && (mX < TextTexture_R[Death_Play].x + TextTexture_R[Death_Play].w) && (mY > TextTexture_R[Death_Play].y) && (mY < TextTexture_R[Death_Play].y + TextTexture_R[Death_Play].h)){
 		overPlay = true;
 		res = 1;
+	}
+	else if ( (mX > TextTexture_R[Death_Return].x) && (mX < TextTexture_R[Death_Return].x + TextTexture_R[Death_Return].w) && (mY > TextTexture_R[Death_Return].y) && (mY < TextTexture_R[Death_Return].y + TextTexture_R[Death_Return].h)){
+		overReturn = true;
+		res = 2;
 	}
 	else if ( (mX > TextTexture_R[Death_Quit].x) && (mX < TextTexture_R[Death_Quit].x + TextTexture_R[Death_Quit].w) && (mY > TextTexture_R[Death_Quit].y) && (mY < TextTexture_R[Death_Quit].y + TextTexture_R[Death_Quit].h)){
 		overQuit = true;
@@ -252,6 +257,13 @@ int handleDeathDisp(){
 		SDL_RenderCopyEx(gRenderer, TextTextures[Death_Play_H], NULL, &TextTexture_R[Death_Play_H], 0, NULL, SDL_FLIP_NONE);
 	}
 
+	if (!overReturn){
+		SDL_RenderCopyEx(gRenderer, TextTextures[Death_Return], NULL, &TextTexture_R[Death_Return], 0, NULL, SDL_FLIP_NONE);
+	}
+	else{
+		SDL_RenderCopyEx(gRenderer, TextTextures[Death_Return_H], NULL, &TextTexture_R[Death_Return_H], 0, NULL, SDL_FLIP_NONE);
+	}
+	
 	if (!overQuit){
 		SDL_RenderCopyEx(gRenderer, TextTextures[Death_Quit], NULL, &TextTexture_R[Death_Quit], 0, NULL, SDL_FLIP_NONE);
 	}
@@ -339,6 +351,18 @@ void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, 
 	tempRect = {7*SCREEN_WIDTH/10+5, 3*SCREEN_HEIGHT/5-5, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Quit_H] = tempRect;
 	TextTextures[Death_Quit_H] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
+	SDL_FreeSurface(tempSurface1);
+
+	tempSurface1 = TTF_RenderText_Solid( bloodyFontS, "Return to main menu", deathColor );
+	tempRect = {3*SCREEN_WIDTH/5, 4*SCREEN_HEIGHT/5, tempSurface1->w, tempSurface1->h};
+	TextTexture_R[Death_Return] = tempRect;
+	TextTextures[Death_Return] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
+	SDL_FreeSurface(tempSurface1);
+
+	tempSurface1 = TTF_RenderText_Solid( bloodyFontS, "Return to main menu", mainColor );
+	tempRect = {3*SCREEN_WIDTH/5+5, 4*SCREEN_HEIGHT/5-5, tempSurface1->w, tempSurface1->h};
+	TextTexture_R[Death_Return_H] = tempRect;
+	TextTextures[Death_Return_H] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
 	tempSurface1 = NULL;
 }

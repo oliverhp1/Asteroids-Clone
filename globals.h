@@ -12,8 +12,9 @@
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
 
-extern const int MAX_N_ASTEROIDS;
+extern int MAX_N_ASTEROIDS;
 extern int N_ASTEROIDS;
+extern int AsteroidVelocityScale;
 extern int score;
 extern std::vector<Asteroid> Asteroids;
 
@@ -31,8 +32,8 @@ extern std::vector<Bullet> Fired;
 extern SDL_Renderer* gRenderer;
 extern SDL_Window* gWindow;
 
-extern SDL_Texture* TextTextures[13];
-extern SDL_Rect TextTexture_R[13];
+extern SDL_Texture* TextTextures[15];
+extern SDL_Rect TextTexture_R[15];
 
 extern TTF_Font* laserFontB;
 extern TTF_Font* bloodyFontB;
