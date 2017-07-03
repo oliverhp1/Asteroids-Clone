@@ -40,6 +40,7 @@ int main(int argc, char* args[]){
 					N_ASTEROIDS++;
 				}
 
+				// all collisions!
 				for (std::vector<Asteroid>::iterator it1 = Asteroids.begin(); it1 != Asteroids.end(); ){	// moves and tests if asteroids are shot
 					it1->move();
 					bool shot = false;
@@ -68,7 +69,8 @@ int main(int argc, char* args[]){
 					}
 				}
 
-				for (std::vector<Bullet>::iterator it2 = Fired.begin(); it2 != Fired.end(); ){	// moves/deletes bullets
+				// moves/deletes bullets
+				for (std::vector<Bullet>::iterator it2 = Fired.begin(); it2 != Fired.end(); ){	
 					if ( it2->move() ){
 						it2 = Fired.erase(it2);
 					}
@@ -76,9 +78,9 @@ int main(int argc, char* args[]){
 						++it2;
 					}
 				}
-
 				gShip.move();
 
+				// drawing
 				SDL_RenderClear(gRenderer);		// clear screen
 
 				SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect); 

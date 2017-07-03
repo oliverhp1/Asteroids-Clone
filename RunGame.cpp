@@ -43,8 +43,20 @@ bool init(){
 	return success;
 }
 
-bool loadMedia(){		// load global textures for asteroid and bullet. 
+bool loadMedia(){		// load global textures for asteroid and bullet, background and text
 	bool success = true;
+
+	laserFont = TTF_OpenFont("fonts/laser.ttf", 48);
+	if ( (laserFont == NULL) || (bloodyFont == NULL) ){
+		printf("couldn't load laser font, error: %s\n", TTF_GetError() );
+		success = 0;
+	}
+
+	bloodyFont = TTF_OpenFont("fonts/bloody.ttf", 60);
+	if ( (laserFont == NULL) || (bloodyFont == NULL) ){
+		printf("couldn't load bloody font, error: %s\n", TTF_GetError() );
+		success = 0;
+	}
 
 	// load ship!
 	if (!(gShip.loadFromFile("images/falcon_tiny.png"))){
@@ -111,6 +123,32 @@ bool loadMedia(){		// load global textures for asteroid and bullet.
 		}
 		SDL_FreeSurface(loadSurface);
 		loadSurface = NULL;
+	}
+	return success;
+}
+
+
+bool loadFontFromText(std::string text, SDL_Color colorMap, bool laser, bool mainMenu){
+	bool success = true;
+	if (laser){
+		SDL_Surface* textSurface = TTF_RenderText_Solid( laserFont, text.c_str(), colorMap);
+	}
+	else{
+		SDL_Surface* textSurface = TTF_RenderText_Solid( bloodyFont, text.c_str(), colorMap);
+	}
+	if (textSurface == NULL){
+		printf("load text surface error: %s\n", TTF_GetError());
+		success = false;
+	}
+	else{
+		// create texture from surface, stick into relevant vector
+		if (mainMenu){
+			MainMenuText.push_back(SDL_CreateTextureFromSurface(gRenderer, textSurface));
+		}
+		else{
+			DeathText.push_back(SDL_CreateTextureFromSurface(gRenderer, textSurface));
+		}
+		SDL_FreeSurface(textSurface);
 	}
 	return success;
 }
