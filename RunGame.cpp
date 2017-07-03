@@ -378,13 +378,13 @@ void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, 
 	SDL_FreeSurface(tempSurface1);
 
 	tempSurface1 = TTF_RenderText_Solid( bloodyFontS, "Return to main menu", deathColor );
-	tempRect = {3*SCREEN_WIDTH/5, 4*SCREEN_HEIGHT/5, tempSurface1->w, tempSurface1->h};
+	tempRect = {SCREEN_WIDTH/12, 9*SCREEN_HEIGHT/10, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Return] = tempRect;
 	TextTextures[Death_Return] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
 
 	tempSurface1 = TTF_RenderText_Solid( bloodyFontS, "Return to main menu", mainColor );
-	tempRect = {3*SCREEN_WIDTH/5+5, 4*SCREEN_HEIGHT/5-5, tempSurface1->w, tempSurface1->h};
+	tempRect = {SCREEN_WIDTH/12+5, 9*SCREEN_HEIGHT/10-5, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Return_H] = tempRect;
 	TextTextures[Death_Return_H] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
