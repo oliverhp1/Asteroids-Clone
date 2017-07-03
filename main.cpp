@@ -32,6 +32,8 @@ int main(int argc, char* args[]){
 			if (showMenu){		// main menu
 				SDL_RenderClear(gRenderer);
 				SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
+				SDL_RenderPresent(gRenderer);	// update screen
+				SDL_Delay(2000);
 				handleMenu();
 			}
 
