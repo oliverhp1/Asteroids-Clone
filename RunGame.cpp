@@ -297,7 +297,7 @@ void handleInferno(){
 }
 
 void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles into TextTexture_R
-	// since we have to manually place all the text textures, using a loop isn't much more convenient
+	// since we have to manually place all the text textures, abstracting these isn't much more convenient
 	SDL_Surface* tempSurface = NULL;
 	tempSurface = TTF_RenderText_Solid( laserFontB, "ASTEROIDS", mainColor );
 	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface->w)/2, SCREEN_HEIGHT/8, tempSurface->w, tempSurface->h};
@@ -353,7 +353,7 @@ void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, 
 	SDL_FreeSurface(tempSurface1);
 
 	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "YOU HAVE DIED", deathColor );
-	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/8, tempSurface1->w, tempSurface1->h};
+	tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/8, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Dead] = tempRect;
 	TextTextures[Death_Dead] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
