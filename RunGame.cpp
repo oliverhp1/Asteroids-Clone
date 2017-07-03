@@ -128,27 +128,30 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 }
 
 
-bool loadFontFromText(std::string text, SDL_Color colorMap, bool laser, bool mainMenu){
+bool loadFontFromText(std::string text, SDL_Color colorMap, bool laser){
 	bool success = true;
-	if (laser){
+	if (laser){		// laser text and main menu
 		SDL_Surface* textSurface = TTF_RenderText_Solid( laserFont, text.c_str(), colorMap);
-	}
-	else{
-		SDL_Surface* textSurface = TTF_RenderText_Solid( bloodyFont, text.c_str(), colorMap);
-	}
-	if (textSurface == NULL){
-		printf("load text surface error: %s\n", TTF_GetError());
-		success = false;
-	}
-	else{
-		// create texture from surface, stick into relevant vector
-		if (mainMenu){
+		if (textSurface == NULL){
+			printf("load text surface error: %s\n", TTF_GetError());
+			success = false;
+		}
+		else{
 			MainMenuText.push_back(SDL_CreateTextureFromSurface(gRenderer, textSurface));
+			SDL_FreeSurface(textSurface);
+		}
+	}
+	
+	else{	// bloody text and death screen
+		SDL_Surface* textSurface = TTF_RenderText_Solid( bloodyFont, text.c_str(), colorMap);
+		if (textSurface == NULL){
+			printf("load text surface error: %s\n", TTF_GetError());
+			success = false;
 		}
 		else{
 			DeathText.push_back(SDL_CreateTextureFromSurface(gRenderer, textSurface));
+			SDL_FreeSurface(textSurface);
 		}
-		SDL_FreeSurface(textSurface);
 	}
 	return success;
 }
