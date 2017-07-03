@@ -2,7 +2,7 @@
 #include "globals.h"
 
 
-enum TextTexture_I {Main_Asteroids, Main_Play, Main_Play_H, Main_Instruct, Main_Instruct_H, Main_Quit, Main_Quit_H, Death_Dead, Death_Score, Death_Play, Death_Play_H, Death_Quit, Death_Quit_H, Death_Return, Death_Return_H};
+enum TextTexture_I {Main_Asteroids, Main_Play, Main_Play_H, Main_Instruct, Main_Instruct_H, Main_Quit, Main_Quit_H, Instructions_Screen, Death_Dead, Death_Score, Death_Play, Death_Play_H, Death_Quit, Death_Quit_H, Death_Return, Death_Return_H};
 
 
 bool init(){
@@ -139,7 +139,7 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 
 	// load global Background texture
 	std::string pathC = "images/black_medium.png";
-	loadSurface = IMG_Load(pathC.c_str() );
+	loadSurface = IMG_Load(pathC.c_str());
 	if (loadSurface == NULL){
 		printf("load background error: %s\n", IMG_GetError() );
 		success = false;
@@ -147,7 +147,24 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	else{
 		Background = SDL_CreateTextureFromSurface(gRenderer, loadSurface);
 		if (Background == NULL){
-			printf("background texture error: %s", SDL_GetError() );
+			printf("background texture error: %s\n", SDL_GetError() );
+			success = false;
+		}
+		SDL_FreeSurface(loadSurface);
+		loadSurface = NULL;
+	}
+
+	// load global inferno texture
+	std::string pathI = "images/inferno.png";
+	loadSurface = SDL_LoadBMP(pathI.c_str());
+	if (loadSurface == NULL){
+		printf("error loading inferno: %s\n", SDL_GetError());
+		success = false;
+	}
+	else{
+		InfernoBackground = SDL_CreateTextureFromSurface(gRenderer, loadSurface);
+		if (InfernoBackground == NULL){
+			printf("error making inferno texture: %s\n", SDL_GetError() );
 			success = false;
 		}
 		SDL_FreeSurface(loadSurface);
@@ -263,7 +280,7 @@ int handleDeathDisp(){
 	else{
 		SDL_RenderCopyEx(gRenderer, TextTextures[Death_Return_H], NULL, &TextTexture_R[Death_Return_H], 0, NULL, SDL_FLIP_NONE);
 	}
-	
+
 	if (!overQuit){
 		SDL_RenderCopyEx(gRenderer, TextTextures[Death_Quit], NULL, &TextTexture_R[Death_Quit], 0, NULL, SDL_FLIP_NONE);
 	}
@@ -323,6 +340,13 @@ void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles
 
 void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, leave out the score til game over.
 	SDL_Surface* tempSurface1 = NULL;
+
+	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "PREPARE FOR INFERNO MODE", deathColor );
+	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/2 - (tempSurface1->h)/2, tempSurface1->w, tempSurface1->h};
+	TextTexture_R[Instructions_Screen] = tempRect;
+	TextTextures[Instructions_Screen] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
+	SDL_FreeSurface(tempSurface1);
+
 	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "YOU HAVE DIED", deathColor );
 	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/8, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Dead] = tempRect;
@@ -458,6 +482,7 @@ void resetGame(){
 	score = 0;
 	gShip.resetPosition();
 	N_ASTEROIDS = 0;
+	AsteroidVelocityScale = 1;
 
 	for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ){
 		rock = Asteroids.erase(rock);

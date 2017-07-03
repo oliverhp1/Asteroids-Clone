@@ -24,6 +24,7 @@ extern int AsteroidWidth0, AsteroidHeight0, BulletWidth, BulletHeight;
 extern SDL_Texture* AsteroidTexture;
 extern SDL_Texture* BulletTexture;
 extern SDL_Texture* Background;
+extern SDL_Texture* InfernoBackground;
 
 extern Ship gShip;
 

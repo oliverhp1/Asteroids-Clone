@@ -17,6 +17,7 @@ int BulletHeight = 0;
 SDL_Texture* AsteroidTexture = NULL;
 SDL_Texture* BulletTexture = NULL;
 SDL_Texture* Background = NULL;
+SDL_Texture* InfernoBackground = NULL;
 
 Ship gShip;
 
