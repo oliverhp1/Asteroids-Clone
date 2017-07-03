@@ -43,22 +43,26 @@ int main(int argc, char* args[]){
 					}
 					SDL_RenderPresent(gRenderer);	// update screen
 				}
-				if (quit){
-					break;
-				}
 
 				while (showDeath){		// death menu
-					if (SDL_PollEvent( &e ) != 0){
-						if (e.type == SDL_QUIT){
-							quit = true;
-							break;
-						}
-					}
-					
 					SDL_RenderClear(gRenderer);
 					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
-					handleDeath();
+					int button = handleDeathDisp();
+					if (SDL_PollEvent( &e ) != 0){
+						switch (handleMenuClick(e, button)){		//1: play, 2: main menu, 3: quit
+							case 1: showDeath = false; break;
+							case 2: showDeath = false; showMenu = true; break;
+							case 3: showDeath = false; quit = true; break;
+						}
+					}
 					SDL_RenderPresent(gRenderer);
+				}
+
+				if (quit){	// save some time when quitting
+					break;
+				}
+				if (showMenu){
+					continue;
 				}
 
 				while (SDL_PollEvent( &e ) != 0){		// gameplay screen
@@ -105,6 +109,7 @@ int main(int argc, char* args[]){
 					
 					if (Scollided(*it1)){
 						showDeath = true;
+						loadScore(score);
 						break;
 					}
 	

@@ -18,8 +18,9 @@ bool loadMedia();
 // all of these for the menus
 int handleMenuDisp();
 int handleMenuClick(SDL_Event, int);
-void handleDeath();
+int handleDeathDisp();
 void loadMainMenu();
+void loadScore(int);
 void loadDeathScreen();
 
 void close();

@@ -204,18 +204,50 @@ int handleMenuClick(SDL_Event &e, int button){		// uses hover info from other fu
 	if (e.type == SDL_QUIT){
 			return 3;
 	}
-	else if ( (e.type != SDL_MOUSEBUTTONDOWN) || (e.button.button != SDL_BUTTON_LEFT) ){
+	else if ( (e.type != SDL_MOUSEBUTTONDOWN) || (e.button.button != SDL_BUTTON_LEFT) ){	// if not a left click
 		return 0;
 	}
-	else{	// if we get here then the left button was pressed
+	else{	// if we get here then the left mouse button was pressed
 		return button;
 	}
 }
 
 
-void handleDeath(){
-	// load score texture first, all others are already loaded.
+int handleDeathDisp(){
+	int mX = 0;
+	int mY = 0;
+	bool overPlay = false;
+	bool overQuit = false;
 
+	int res = 0;	// 3 for quit, 1 for play (so we can reuse the handleMenuClick method)
+	SDL_GetMouseState(&mX, &mY);
+
+	if ( (mX > TextTexture_R[Death_Play].x) && (mX < TextTexture_R[Death_Play].x + TextTexture_R[Death_Play].w) && (mY > TextTexture_R[Death_Play].y) && (mY < TextTexture_R[Death_Play].y + TextTexture_R[Death_Play].h)){
+		overPlay = true;
+		res = 1;
+	}
+	else if ( (mX > TextTexture_R[Death_Quit].x) && (mX < TextTexture_R[Death_Quit].x + TextTexture_R[Death_Quit].w) && (mY > TextTexture_R[Death_Quit].y) && (mY < TextTexture_R[Death_Quit].y + TextTexture_R[Death_Quit].h)){
+		overQuit = true;
+		res = 3;
+	}
+	SDL_RenderCopyEx(gRenderer, TextTextures[Death_Dead], NULL, &TextTexture_R[Death_Dead], 0, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(gRenderer, TextTextures[Death_Score], NULL, &TextTexture_R[Death_Score], 0, NULL, SDL_FLIP_NONE);
+
+	if (!overPlay){
+		SDL_RenderCopyEx(gRenderer, TextTextures[Death_Play], NULL, &TextTexture_R[Death_Play], 0, NULL, SDL_FLIP_NONE);
+	}
+	else{
+		SDL_RenderCopyEx(gRenderer, TextTextures[Death_Play_H], NULL, &TextTexture_R[Death_Play_H], 0, NULL, SDL_FLIP_NONE);
+	}
+
+	if (!overQuit){
+		SDL_RenderCopyEx(gRenderer, TextTextures[Death_Quit], NULL, &TextTexture_R[Death_Quit], 0, NULL, SDL_FLIP_NONE);
+	}
+	else{
+		SDL_RenderCopyEx(gRenderer, TextTextures[Death_Quit_H], NULL, &TextTexture_R[Death_Quit_H], 0, NULL, SDL_FLIP_NONE);
+	}
+
+	return res;
 }
 
 void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles into TextTexture_R
@@ -297,6 +329,16 @@ void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, 
 	TextTextures[Death_Quit_H] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
 	tempSurface1 = NULL;
+}
+
+void loadScore(int score){
+	SDL_Surface* tempSurface2 = NULL;
+	std::string scoreStr = "Score: " + std::to_string(score);
+	tempSurface2 = TTF_RenderText_Solid( bloodyFont, scoreStr.c_str(), deathColor );
+	SDL_Rect tempRect = {SCREEN_WIDTH/2 + (tempSurface2->w)/3, SCREEN_HEIGHT/3, tempSurface2->w, tempSurface2->h};
+	TextTexture_R[Death_Score] = tempRect;
+	TextTextures[Death_Score] = SDL_CreateTextureFromSurface(gRenderer, tempSurface2);
+	SDL_FreeSurface(tempSurface2);
 }
 
 void close(){
