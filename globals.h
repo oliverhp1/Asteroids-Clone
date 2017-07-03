@@ -31,8 +31,16 @@ extern std::vector<Bullet> Fired;
 extern SDL_Renderer* gRenderer;
 extern SDL_Window* gWindow;
 
-extern std::vector<SDL_Texture*> MainMenuText;
-extern std::vector<SDL_Texture*> DeathText;
+extern SDL_Texture* TextTextures[13];
+extern SDL_Rect TextTexture_R[13];
+extern enum TextTexture_I;
 
+extern TTF_Font* laserFontB;
+extern TTF_Font* bloodyFontB;
 extern TTF_Font* laserFont;
 extern TTF_Font* bloodyFont;
+
+extern SDL_Color mainColor;		// silver ish.  Also use this color for death screen selecting
+extern SDL_Color mainColorH;	// metallic blue? but not too close to cyan
+extern SDL_Color deathColor;	// slightly darker red
+

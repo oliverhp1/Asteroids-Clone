@@ -50,13 +50,25 @@ bool init(){
 bool loadMedia(){		// load global textures for asteroid and bullet, background and text
 	bool success = true;
 
-	laserFont = TTF_OpenFont("fonts/laser.ttf", 48);
+	laserFontB = TTF_OpenFont("fonts/laser.ttf", SCREEN_HEIGHT/10);
+	if ( (laserFontB == NULL) ){
+		printf("couldn't load laser font, error: %s\n", TTF_GetError() );
+		success = 0;
+	}
+
+	bloodyFontB = TTF_OpenFont("fonts/bloody.ttf", SCREEN_HEIGHT/8);
+	if ((bloodyFontB == NULL) ){
+		printf("couldn't load bloody font, error: %s\n", TTF_GetError() );
+		success = 0;
+	}
+
+	laserFont = TTF_OpenFont("fonts/laser.ttf", SCREEN_HEIGHT/16);
 	if ( (laserFont == NULL) ){
 		printf("couldn't load laser font, error: %s\n", TTF_GetError() );
 		success = 0;
 	}
 
-	bloodyFont = TTF_OpenFont("fonts/bloody.ttf", 60);
+	bloodyFont = TTF_OpenFont("fonts/bloody.ttf", SCREEN_HEIGHT/10);
 	if ((bloodyFont == NULL) ){
 		printf("couldn't load bloody font, error: %s\n", TTF_GetError() );
 		success = 0;
@@ -128,40 +140,73 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 		SDL_FreeSurface(loadSurface);
 		loadSurface = NULL;
 	}
+
+	// load main menu and death menu textures
+	if (!loadMainMenu()){
+		printf("error loading main menu textures");
+		success = false;
+	}
+
+	if (!loadDeathScreen()){
+		printf("error loading death screen textures");
+		success = false;
+	}
+
 	return success;
 }
 
 
-bool loadFontFromText(std::string text, SDL_Color colorMap, bool laser){
-	bool success = true;
-	if (laser){		// laser text and main menu
-		SDL_Surface* textSurface = TTF_RenderText_Solid( laserFont, text.c_str(), colorMap);
-		if (textSurface == NULL){
-			printf("load text surface error: %s\n", TTF_GetError());
-			success = false;
-		}
-		else{
-			MainMenuText.push_back(SDL_CreateTextureFromSurface(gRenderer, textSurface));
-			SDL_FreeSurface(textSurface);
-		}
+SDL_Surface* loadFontFromText(std::string text, SDL_Color colorMap, bool laser, bool big){
+	if (laser && big){		// laser text and main menu
+		return TTF_RenderText_Solid( laserFontB, text.c_str(), colorMap);
 	}
-	
-	else{	// bloody text and death screen
-		SDL_Surface* textSurface = TTF_RenderText_Solid( bloodyFont, text.c_str(), colorMap);
-		if (textSurface == NULL){
-			printf("load text surface error: %s\n", TTF_GetError());
-			success = false;
-		}
-		else{
-			DeathText.push_back(SDL_CreateTextureFromSurface(gRenderer, textSurface));
-			SDL_FreeSurface(textSurface);
-		}
+	else if (laser){
+		return TTF_RenderText_Solid( laserFont, text.c_str(), colorMap);
 	}
-	return success;
+	else if (big){
+		return TTF_RenderText_Solid( bloodyFontB, text.c_str(), colorMap);
+	}
+	else{
+		return TTF_RenderText_Solid( bloodyFont, text.c_str(), colorMap);
+	}
 }
 
 void handleMenu(){
+	// render texts based on mouse position. create global rectangles and colors to use? 
+	// first just stick in some text, do mouse shit later
+	SDL_RenderCopyEx(gRenderer, TextTextures[Main_Asteroids], NULL, &TextTexture_R[Main_Asteroids], 0, NULL, SDL_FLIP_NONE);
 
+
+}
+
+bool loadMainMenu(){	// load up main menu textures into TextTextures, rectangles into TextTexture_R
+	SDL_Surface* tempSurface = NULL;
+	tempSurface = TTF_RenderText_Solid( laserFontB, "ASTEROIDS", mainColor );
+	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface->w)/2, SCREEN_HEIGHT/8, tempSurface->w, tempSurface->h};
+	TextTexture_R[Main_Asteroids] = tempRect;
+	TextTextures[Main_Asteroids] = SDL_CreateTextureFromSurface(gRenderer, loadFontFromText("ASTEROIDS", mainColor, true, true));
+/*
+
+	TextTextures[Main_Play] = SDL_CreateTextureFromSurface(gRenderer, loadFontFromText("PLAY GAME", mainColor, true, false));
+	TextTextures[Main_Play_H] = SDL_CreateTextureFromSurface(gRenderer, loadFontFromText("PLAY GAME", mainColorH, true, false));
+	TextTextures[Main_Instruct] = SDL_CreateTextureFromSurface(gRenderer, loadFontFromText("Instructions", mainColor, true, false));
+	TextTextures[Main_Instruct_H] = SDL_CreateTextureFromSurface(gRenderer, loadFontFromText("Instructions", mainColorH, true, false));
+	TextTextures[Main_Quit] = SDL_CreateTextureFromSurface(gRenderer, loadFontFromText("Quit", mainColor, true, false));
+	TextTextures[Main_Quit_H] = SDL_CreateTextureFromSurface(gRenderer, loadFontFromText("Quit", mainColorH, true, false));
+
+	
+	TextTextures[Main_Play] = 
+	TextTextures[Main_Play_H] = 
+	TextTextures[Main_Instruct] = 
+	TextTextures[Main_Instruct_H] = 
+	TextTextures[Main_Quit] = 
+	TextTextures[Main_Quit_H] = 
+
+*/	return 1;
+}
+
+bool loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, leave out the score one.
+	return 1;
 }
 
 void close(){
@@ -171,19 +216,19 @@ void close(){
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
 	gRenderer = NULL;
+	TTF_CloseFont(laserFont);
+	TTF_CloseFont(bloodyFont);
 
-	for (std::vector<SDL_Texture*>::iterator menuText = MainMenuText.begin(); menuText != MainMenuText.end(); ++menuText){
-		SDL_DestroyTexture(*menuText);
-	}
-
-	for (std::vector<SDL_Texture*>::iterator dText = DeathText.begin(); dText != DeathText.end(); ++dText){
-		SDL_DestroyTexture(*dText);
+	for (int d = 0; d < 13; d++){
+		SDL_DestroyTexture(TextTextures[d]);
 	}
 	
 	SDL_DestroyTexture(AsteroidTexture);
 	SDL_DestroyTexture(BulletTexture);
+
 	SDL_Quit();
 	IMG_Quit();
+	TTF_Quit();
 }
 
 bool collided(Bullet b1, Asteroid a1){

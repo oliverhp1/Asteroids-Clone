@@ -24,8 +24,15 @@ std::vector<Bullet> Fired;
 SDL_Renderer* gRenderer = NULL;
 SDL_Window* gWindow = NULL;
 
-std::vector<SDL_Texture*> MainMenuText;
-std::vector<SDL_Texture*> DeathText;
+SDL_Texture* TextTextures[13] = {NULL}; 
+SDL_Rect TextTexture_R[13] = {NULL};
+enum TextTexture_I = {Main_Asteroids, Main_Play, Main_Play_H, Main_Instruct, Main_Instruct_H, Main_Quit, Main_Quit_H, Death_Dead, Death_Score, Death_Play, Death_Play_H, Death_Quit, Death_Quit_H};
 
+TTF_Font* laserFontB = NULL;
+TTF_Font* bloodyFontB = NULL;
 TTF_Font* laserFont = NULL;
 TTF_Font* bloodyFont = NULL;
+
+SDL_Color mainColor = {192,192,192};	// silver
+SDL_Color mainColorH = {123,104,238};	// medium slate blue
+SDL_Color deathColor = {139,0,0};		// dark red
