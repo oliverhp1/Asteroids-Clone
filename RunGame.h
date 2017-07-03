@@ -19,6 +19,7 @@ bool loadMedia();
 int handleMenuDisp();
 int handleMenuClick(SDL_Event&, int);
 int handleDeathDisp();
+void handleInferno();
 void loadMainMenu();
 void loadScore(int);
 void loadDeathScreen();

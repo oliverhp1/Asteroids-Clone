@@ -47,8 +47,8 @@ int main(int argc, char* args[]){
 				}
 				if (inferno){
 					SDL_RenderClear(gRenderer);
-					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
-					SDL_RenderCopyEx(gRenderer, TextTextures[Instructions_Screen], NULL, &TextTexture_R[Instructions_Screen], 0, NULL, SDL_FLIP_NONE);
+					handleInferno();
+					SDL_RenderPresent(gRenderer);
 					SDL_Delay(2000);
 					AsteroidVelocityScale = 5;
 				}

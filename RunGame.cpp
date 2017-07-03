@@ -291,6 +291,11 @@ int handleDeathDisp(){
 	return res;
 }
 
+void handleInferno(){
+	SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
+	SDL_RenderCopyEx(gRenderer, TextTextures[Instructions_Screen], NULL, &TextTexture_R[Instructions_Screen], 0, NULL, SDL_FLIP_NONE);					
+}
+
 void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles into TextTexture_R
 	// since we have to manually place all the text textures, using a loop isn't much more convenient
 	SDL_Surface* tempSurface = NULL;
