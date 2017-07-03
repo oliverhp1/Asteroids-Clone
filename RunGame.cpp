@@ -150,30 +150,50 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	return success;
 }
 
-void handleMenu(){
-	// render texts based on mouse position. create global rectangles and colors to use? 
-	// first just stick in some text, do mouse shit later
+int handleMenu(){
+	int mX = 0;
+	int mY = 0;		// mouse coordinates
+	bool overPlay = false;
+	bool overInstruct = false;
+	bool overQuit = false;
+
+	SDL_GetMouseState(&mX, &mY);
+
+	if ( (mX > TextTexture_R[Main_Play].x) && (mX < TextTexture_R[Main_Play].x + TextTexture_R[Main_Play].w) && (mY > TextTexture_R[Main_Play].y) && (mY < TextTexture_R[Main_Play].y + TextTexture_R[Main_Play].h)){
+		overPlay = true;
+	}
+	else if ( (mX > TextTexture_R[Main_Instruct].x) && (mX < TextTexture_R[Main_Instruct].x + TextTexture_R[Main_Instruct].w) && (mY > TextTexture_R[Main_Instruct].y) && (mY < TextTexture_R[Main_Instruct].y + TextTexture_R[Main_Instruct].h)){
+		overInstruct = true;
+	}
+	else if ( (mX > TextTexture_R[Main_Quit].x) && (mX < TextTexture_R[Main_Quit].x + TextTexture_R[Main_Quit].w) && (mY > TextTexture_R[Main_Quit].y) && (mY < TextTexture_R[Main_Quit].y + TextTexture_R[Main_Quit].h)){
+		overQuit = true;
+	}
+
+	
 	SDL_RenderCopyEx(gRenderer, TextTextures[Main_Asteroids], NULL, &TextTexture_R[Main_Asteroids], 0, NULL, SDL_FLIP_NONE);
-	if (true){
+
+	if (!overPlay){
 		SDL_RenderCopyEx(gRenderer, TextTextures[Main_Play], NULL, &TextTexture_R[Main_Play], 0, NULL, SDL_FLIP_NONE);
 	}
 	else{
 		SDL_RenderCopyEx(gRenderer, TextTextures[Main_Play_H], NULL, &TextTexture_R[Main_Play_H], 0, NULL, SDL_FLIP_NONE);
 	}
 
-	if (true){
+	if (!overInstruct){
 		SDL_RenderCopyEx(gRenderer, TextTextures[Main_Instruct], NULL, &TextTexture_R[Main_Instruct], 0, NULL, SDL_FLIP_NONE);
 	}
 	else{
 		SDL_RenderCopyEx(gRenderer, TextTextures[Main_Instruct_H], NULL, &TextTexture_R[Main_Instruct_H], 0, NULL, SDL_FLIP_NONE);
 	}
 
-	if (true){
+	if (!overQuit){
 		SDL_RenderCopyEx(gRenderer, TextTextures[Main_Quit], NULL, &TextTexture_R[Main_Quit], 0, NULL, SDL_FLIP_NONE);
 	}
 	else{
 		SDL_RenderCopyEx(gRenderer, TextTextures[Main_Quit_H], NULL, &TextTexture_R[Main_Quit_H], 0, NULL, SDL_FLIP_NONE);
 	}
+
+	return 0;	// return 1 if play, return 2 if instructions, return 3 if quit
 
 }
 
