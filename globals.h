@@ -33,7 +33,7 @@ extern SDL_Window* gWindow;
 
 extern SDL_Texture* TextTextures[13];
 extern SDL_Rect TextTexture_R[13];
-extern enum TextTexture_I;
+extern enum TextTexture_I; // {Main_Asteroids, Main_Play, Main_Play_H, Main_Instruct, Main_Instruct_H, Main_Quit, Main_Quit_H, Death_Dead, Death_Score, Death_Play, Death_Play_H, Death_Quit, Death_Quit_H};
 
 extern TTF_Font* laserFontB;
 extern TTF_Font* bloodyFontB;
