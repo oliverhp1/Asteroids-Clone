@@ -150,23 +150,28 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	return success;
 }
 
-int handleMenu(SDL_Event &e){		// return 1: play, 2: instructions, 3: quit.
+int handleMenuDisp(){		// return 1: play, 2: instructions, 3: quit.
 	int mX = 0;
 	int mY = 0;		// mouse coordinates
 	bool overPlay = false;
 	bool overInstruct = false;
 	bool overQuit = false;
 
+	int res = 0;	// return 1 for Play, 2 for Instructions, 3 for Quit
+
 	SDL_GetMouseState(&mX, &mY);
 
 	if ( (mX > TextTexture_R[Main_Play].x) && (mX < TextTexture_R[Main_Play].x + TextTexture_R[Main_Play].w) && (mY > TextTexture_R[Main_Play].y) && (mY < TextTexture_R[Main_Play].y + TextTexture_R[Main_Play].h)){
 		overPlay = true;
+		res = 1;
 	}
 	else if ( (mX > TextTexture_R[Main_Instruct].x) && (mX < TextTexture_R[Main_Instruct].x + TextTexture_R[Main_Instruct].w) && (mY > TextTexture_R[Main_Instruct].y) && (mY < TextTexture_R[Main_Instruct].y + TextTexture_R[Main_Instruct].h)){
 		overInstruct = true;
+		res = 2;
 	}
 	else if ( (mX > TextTexture_R[Main_Quit].x) && (mX < TextTexture_R[Main_Quit].x + TextTexture_R[Main_Quit].w) && (mY > TextTexture_R[Main_Quit].y) && (mY < TextTexture_R[Main_Quit].y + TextTexture_R[Main_Quit].h)){
 		overQuit = true;
+		res = 3;
 	}
 
 	SDL_RenderCopyEx(gRenderer, TextTextures[Main_Asteroids], NULL, &TextTexture_R[Main_Asteroids], 0, NULL, SDL_FLIP_NONE);
@@ -191,25 +196,22 @@ int handleMenu(SDL_Event &e){		// return 1: play, 2: instructions, 3: quit.
 	else{
 		SDL_RenderCopyEx(gRenderer, TextTextures[Main_Quit_H], NULL, &TextTexture_R[Main_Quit_H], 0, NULL, SDL_FLIP_NONE);
 	}
+	return res;
+}
 
-	if ( (SDL_PollEvent( &e ) == 0) || (e.type != SDL_MOUSEBUTTONDOWN) || (e.button.button != SDL_BUTTON_LEFT) ){
+
+int handleMenuClick(SDL_Event &e, int button){		// uses hover info from other function; determines if clicked
+	if (e.type == SDL_QUIT){
+			return 3;
+	}
+	else if ( (e.type != SDL_MOUSEBUTTONDOWN) || (e.button.button != SDL_BUTTON_LEFT) ){
 		return 0;
 	}
 	else{	// if we get here then the left button was pressed
-		if ((e.type == SDL_QUIT) || overQuit){
-			return 3;
-		}
-		else if (overInstruct){
-			return 2;
-		}
-		else if (overPlay){
-			return 1;
-		}
-		else{	// not over a button
-			return 0;
-		}
+		return button;
 	}
 }
+
 
 void handleDeath(){
 	// load score texture first, all others are already loaded.
