@@ -15,8 +15,8 @@
 bool init();
 bool loadMedia();
 
-// all 4 of these for the menus
-bool loadFontFromText(std::string, SDL_Color, bool, bool);	// bool = true for laser; 2nd bool = true for big
+// all 3 of these for the menus
+SDL_Surface* loadFontFromText(std::string, SDL_Color, bool, bool);	// bool = true for laser; 2nd bool = true for big
 void handleMenu();
 bool loadMainMenu();
 bool loadDeathScreen();
