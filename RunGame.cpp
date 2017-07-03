@@ -150,10 +150,9 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	return success;
 }
 
-int handleMenu(){		// return 1: play, 2: instructions, 3: quit.
+int handleMenu(SDL_Event &e){		// return 1: play, 2: instructions, 3: quit.
 	int mX = 0;
 	int mY = 0;		// mouse coordinates
-	SDL_Event e;
 	bool overPlay = false;
 	bool overInstruct = false;
 	bool overQuit = false;
@@ -197,13 +196,13 @@ int handleMenu(){		// return 1: play, 2: instructions, 3: quit.
 		return 0;
 	}
 	else{	// if we get here then the left button was pressed
-		if (overQuit){
+		if ((e.type == SDL_QUIT) || overQuit){
 			return 3;
 		}
 		else if (overInstruct){
 			return 2;
 		}
-		else if (overQuit){
+		else if (overPlay){
 			return 1;
 		}
 		else{	// not over a button

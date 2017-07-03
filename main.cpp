@@ -31,22 +31,18 @@ int main(int argc, char* args[]){
 
 			while (!quit){
 				while (showMenu){		// main menu
-					if (SDL_PollEvent( &e ) != 0){
-						if (e.type == SDL_QUIT){
-							quit = true;
-							break;
-						}
-					}
 					SDL_RenderClear(gRenderer);
 					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
-					switch (handleMenu()){		//1: play, 2: instructions, 3: quit.
+					switch (handleMenu(&e)){		//1: play, 2: instructions, 3: quit.
 						case 1: showMenu = false; break;
 						case 2: showMenu = false; quit = true; break;	// make instructions screen still
 						case 3: showMenu = false; quit = true; break;
 					}
 					SDL_RenderPresent(gRenderer);	// update screen
 				}
-				if (quit){break;}
+				if (quit){
+					break;
+				}
 
 				while (showDeath){		// death menu
 					if (SDL_PollEvent( &e ) != 0){
