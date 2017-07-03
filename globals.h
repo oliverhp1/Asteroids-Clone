@@ -38,6 +38,8 @@ extern TTF_Font* laserFontB;
 extern TTF_Font* bloodyFontB;
 extern TTF_Font* laserFont;
 extern TTF_Font* bloodyFont;
+extern TTF_Font* laserFontS;
+extern TTF_Font* bloodyFontS;
 
 extern SDL_Color mainColor;		// silver ish.  Also use this color for death screen selecting
 extern SDL_Color mainColorH;	// metallic blue? but not too close to cyan

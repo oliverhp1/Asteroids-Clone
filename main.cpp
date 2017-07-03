@@ -50,7 +50,7 @@ int main(int argc, char* args[]){
 					int button = handleDeathDisp();
 					while (SDL_PollEvent( &e ) != 0){
 						switch (handleMenuClick(e, button)){		//1: play, 2: main menu, 3: quit
-							case 1: showDeath = false; break;
+							case 1: showDeath = false; resetGame(); break;
 							case 2: showDeath = false; showMenu = true; break;
 							case 3: showDeath = false; quit = true; break;
 						}
@@ -110,7 +110,6 @@ int main(int argc, char* args[]){
 					if (Scollided(*it1)){
 						showDeath = true;
 						loadScore(score);
-						resetGame();
 						break;
 					}
 	

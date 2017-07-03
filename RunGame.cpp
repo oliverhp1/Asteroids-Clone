@@ -433,7 +433,7 @@ void resetGame(){
 	// clear asteroids, bullets, put ship back at mid screen, set score = 0
 	score = 0;
 	gShip.resetPosition();
-	N_Asteroids = 0;
+	N_ASTEROIDS = 0;
 
 	for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ){
 		rock = Asteroids.erase(rock);
