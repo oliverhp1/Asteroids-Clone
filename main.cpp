@@ -37,12 +37,16 @@ int main(int argc, char* args[]){
 							break;
 						}
 					}
-				
 					SDL_RenderClear(gRenderer);
 					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
-					handleMenu();
+					switch (handleMenu()){		//1: play, 2: instructions, 3: quit.
+						case 1: showMenu = false; break;
+						case 2: showMenu = false; quit = true; break;	// make instructions screen still
+						case 3: showMenu = false; quit = true; break;
+					}
 					SDL_RenderPresent(gRenderer);	// update screen
 				}
+				if (quit){break;}
 
 				while (showDeath){		// death menu
 					if (SDL_PollEvent( &e ) != 0){
