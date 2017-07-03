@@ -33,7 +33,7 @@ int main(int argc, char* args[]){
 				while (showMenu){		// main menu
 					SDL_RenderClear(gRenderer);
 					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
-					switch (handleMenu(&e)){		//1: play, 2: instructions, 3: quit.
+					switch (handleMenu(e)){		//1: play, 2: instructions, 3: quit.
 						case 1: showMenu = false; break;
 						case 2: showMenu = false; quit = true; break;	// make instructions screen still
 						case 3: showMenu = false; quit = true; break;
