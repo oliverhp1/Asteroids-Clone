@@ -28,6 +28,7 @@ int main(int argc, char* args[]){
 			SDL_Rect backgroundRect = {0,0,SCREEN_WIDTH,SCREEN_HEIGHT};
 			bool showMenu = true;
 			bool showDeath = false;
+			bool plusDifficulty = false;
 
 			while (!quit){
 				while (showMenu){		// main menu
@@ -65,10 +66,14 @@ int main(int argc, char* args[]){
 					continue;
 				}
 
-				// raise difficulty if score is mounting
-				if (score%10==0){
+				// raise difficulty if score is mounting: every 10 hits
+				if (score%10==1){
+					plusDifficulty = true;
+				}
+				if (plusDifficulty && (score%10==0)){
 					MAX_N_ASTEROIDS += 3;
 					AsteroidVelocityScale++;
+					plusDifficulty = false;
 				}
 
 				while (SDL_PollEvent( &e ) != 0){		// gameplay screen
