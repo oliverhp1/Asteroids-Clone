@@ -31,6 +31,9 @@ TTF_Font* laserFontB = NULL;
 TTF_Font* bloodyFontB = NULL;
 TTF_Font* laserFont = NULL;
 TTF_Font* bloodyFont = NULL;
+TTF_Font* laserFontS = NULL;
+TTF_Font* bloodyFontS = NULL;
+
 
 SDL_Color mainColor = {192,192,192};	// silver
 SDL_Color mainColorH = {123,104,238};	// medium slate blue

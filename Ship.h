@@ -30,6 +30,7 @@ class Ship{
 		double getA();
 		int getW();
 		int getH();
+		void resetPosition();
 
 	private:
 		SDL_Texture* sTexture;

@@ -75,6 +75,18 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 		success = 0;
 	}
 
+	laserFontS = TTF_OpenFont("fonts/laser.ttf", SCREEN_HEIGHT/20);
+	if ( (laserFont == NULL) ){
+		printf("couldn't load laser font, error: %s\n", TTF_GetError() );
+		success = 0;
+	}
+
+	bloodyFontS = TTF_OpenFont("fonts/bloody.ttf", SCREEN_HEIGHT/20);
+	if ((bloodyFont == NULL) ){
+		printf("couldn't load bloody font, error: %s\n", TTF_GetError() );
+		success = 0;
+	}
+
 	// load ship!
 	if (!(gShip.loadFromFile("images/falcon_tiny.png"))){
 		printf("couldn't load ship\n");
@@ -414,6 +426,20 @@ bool Scollided(Asteroid a1){	// ship is global: gShip
 	}
 	else{
 		return false;
+	}
+}
+
+void resetGame(){
+	// clear asteroids, bullets, put ship back at mid screen, set score = 0
+	score = 0;
+	gShip.resetPosition();
+	N_Asteroids = 0;
+
+	for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ){
+		rock = Asteroids.erase(rock);
+	}
+	for (std::vector<Bullet>::iterator bullet = Fired.begin(); bullet != Fired.end(); ){
+		bullet = Fired.erase(bullet);
 	}
 }
 

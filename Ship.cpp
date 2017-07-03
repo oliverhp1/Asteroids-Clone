@@ -112,3 +112,11 @@ int Ship::getW(){
 int Ship::getH(){
 	return sHeight;
 }
+
+void Ship::resetPosition(){
+	sPosX = SCREEN_WIDTH/2;
+	sPosY = SCREEN_HEIGHT/2;
+	sVel = 0;
+	sOmega = 0;
+	angle = 0;
+}

@@ -110,6 +110,7 @@ int main(int argc, char* args[]){
 					if (Scollided(*it1)){
 						showDeath = true;
 						loadScore(score);
+						resetGame();
 						break;
 					}
 	

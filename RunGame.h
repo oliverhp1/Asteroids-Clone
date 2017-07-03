@@ -26,3 +26,4 @@ void loadDeathScreen();
 void close();
 bool collided(Bullet, Asteroid);
 bool Scollided(Asteroid);
+void resetGame();
