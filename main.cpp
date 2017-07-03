@@ -26,76 +26,89 @@ int main(int argc, char* args[]){
 			bool quit = false;
 			SDL_Event e;
 			SDL_Rect backgroundRect = {0,0,SCREEN_WIDTH,SCREEN_HEIGHT};
+			bool showMenu = true;
+			bool showDeath = false;
 
-			while (!quit){
-				// queue
-				while (SDL_PollEvent( &e ) != 0){
-					if(e.type == SDL_QUIT){
-						quit = true;
+			if (showMenu){		// main menu
+				SDL_RenderClear(gRenderer);
+				SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
+				handleMenu();
+			}
+
+			else if (showDeath){		// death menu
+				//death menu 
+			}
+
+			else{			// gameplay screen
+				while (!quit){
+					// queue
+					while (SDL_PollEvent( &e ) != 0){
+						if(e.type == SDL_QUIT){
+							quit = true;
+						}
+						gShip.handleEvent(e);
 					}
-					gShip.handleEvent(e);
-				}
 
-				if (N_ASTEROIDS < MAX_N_ASTEROIDS){
-					Asteroids.push_back(Asteroid());
-					N_ASTEROIDS++;
-				}
+					if (N_ASTEROIDS < MAX_N_ASTEROIDS){
+						Asteroids.push_back(Asteroid());
+						N_ASTEROIDS++;
+					}
 
-				// all collisions!
-				for (std::vector<Asteroid>::iterator it1 = Asteroids.begin(); it1 != Asteroids.end(); ){	// moves and tests if asteroids are shot
-					it1->move();
-					bool shot = false;
+					// all collisions!
+					for (std::vector<Asteroid>::iterator it1 = Asteroids.begin(); it1 != Asteroids.end(); ){	// moves and tests if asteroids are shot
+						it1->move();
+						bool shot = false;
 
-					for (std::vector<Bullet>::iterator it0 = Fired.begin(); it0 != Fired.end(); ){
-						if (collided(*it0, *it1)){		// dereference iterators before sticking into function
-							it0 = Fired.erase(it0);
-							it1 = Asteroids.erase(it1);
-							shot = true;
-							N_ASTEROIDS--;
+						for (std::vector<Bullet>::iterator it0 = Fired.begin(); it0 != Fired.end(); ){
+							if (collided(*it0, *it1)){		// dereference iterators before sticking into function
+								it0 = Fired.erase(it0);
+								it1 = Asteroids.erase(it1);
+								shot = true;
+								N_ASTEROIDS--;
+								break;
+							}
+							else{
+								++it0;
+							}
+						}
+						
+						if (Scollided(*it1)){
+							SDL_Delay(1000);
+							quit = true;
 							break;
 						}
-						else{
-							++it0;
+		
+						if (!shot){
+							++it1;		// if shot, iterator already advanced.
 						}
 					}
-					
-					if (Scollided(*it1)){
-						SDL_Delay(1000);
-						quit = true;
-						break;
+
+					// moves/deletes bullets
+					for (std::vector<Bullet>::iterator it2 = Fired.begin(); it2 != Fired.end(); ){	
+						if ( it2->move() ){
+							it2 = Fired.erase(it2);
+						}
+						else{
+							++it2;
+						}
 					}
-	
-					if (!shot){
-						++it1;		// if shot, iterator already advanced.
+					gShip.move();
+
+					// drawing
+					SDL_RenderClear(gRenderer);		// clear screen
+
+					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect); 
+
+					for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ++rock){
+						rock->render();
 					}
-				}
-
-				// moves/deletes bullets
-				for (std::vector<Bullet>::iterator it2 = Fired.begin(); it2 != Fired.end(); ){	
-					if ( it2->move() ){
-						it2 = Fired.erase(it2);
+					for (std::vector<Bullet>::iterator bullet = Fired.begin(); bullet != Fired.end(); ++bullet){
+						bullet->render();
 					}
-					else{
-						++it2;
-					}
+
+					gShip.render();
+					SDL_RenderPresent(gRenderer);	// update screen
 				}
-				gShip.move();
-
-				// drawing
-				SDL_RenderClear(gRenderer);		// clear screen
-
-				SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect); 
-
-				for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ++rock){
-					rock->render();
-				}
-				for (std::vector<Bullet>::iterator bullet = Fired.begin(); bullet != Fired.end(); ++bullet){
-					bullet->render();
-				}
-
-				gShip.render();
-				SDL_RenderPresent(gRenderer);	// update screen
-
 			}
 		}
 	}

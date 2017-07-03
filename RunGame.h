@@ -15,6 +15,7 @@
 bool init();
 bool loadMedia();
 bool loadFontFromText(std::string, SDL_Color, bool);	// bool = true for laser (also main menu), false for bloody
+void handleMenu();
 void close();
 bool collided(Bullet, Asteroid);
 bool Scollided(Asteroid);

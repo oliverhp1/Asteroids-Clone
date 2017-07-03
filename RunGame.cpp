@@ -156,6 +156,10 @@ bool loadFontFromText(std::string text, SDL_Color colorMap, bool laser){
 	return success;
 }
 
+void handleMenu(){
+	
+}
+
 void close(){
 	gShip.free();
 
@@ -163,6 +167,14 @@ void close(){
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
 	gRenderer = NULL;
+
+	for (std::vector<SDL_Texture*>::iterator menuText = MainMenuText.begin(); menuText != MainMenuText.end(); ++menuText){
+		SDL_DestroyTexture(*menuText);
+	}
+
+	for (std::vector<SDL_Texture*>::iterator dText = DeathText.begin(); dText != DeathText.end(); ++dText){
+		SDL_DestroyTexture(*dText);
+	}
 	
 	SDL_DestroyTexture(AsteroidTexture);
 	SDL_DestroyTexture(BulletTexture);
