@@ -218,7 +218,7 @@ void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles
 	SDL_FreeSurface(tempSurface);
 	
 	tempSurface = TTF_RenderText_Solid( laserFont, "PLAY GAME", mainColorH );
-	tempRect = {SCREEN_WIDTH/2 - (tempSurface->w)/2+10, 2*SCREEN_HEIGHT/5-10, tempSurface->w, tempSurface->h};
+	tempRect = {SCREEN_WIDTH/2 - (tempSurface->w)/2+5, 2*SCREEN_HEIGHT/5-5, tempSurface->w, tempSurface->h};
 	TextTexture_R[Main_Play_H] = tempRect;
 	TextTextures[Main_Play_H] = SDL_CreateTextureFromSurface(gRenderer, tempSurface);
 	SDL_FreeSurface(tempSurface);
@@ -230,7 +230,7 @@ void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles
 	SDL_FreeSurface(tempSurface);
 
 	tempSurface = TTF_RenderText_Solid( laserFont, "Instructions", mainColorH );
-	tempRect = {SCREEN_WIDTH/2 - (tempSurface->w)/2+10, 3*SCREEN_HEIGHT/5-10, tempSurface->w, tempSurface->h};
+	tempRect = {SCREEN_WIDTH/2 - (tempSurface->w)/2+5, 3*SCREEN_HEIGHT/5-5, tempSurface->w, tempSurface->h};
 	TextTexture_R[Main_Instruct_H] = tempRect;
 	TextTextures[Main_Instruct_H] = SDL_CreateTextureFromSurface(gRenderer, tempSurface);
 	SDL_FreeSurface(tempSurface);
@@ -242,7 +242,7 @@ void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles
 	SDL_FreeSurface(tempSurface);
 
 	tempSurface = TTF_RenderText_Solid( laserFont, "Quit", mainColorH );
-	tempRect = {SCREEN_WIDTH/2 - (tempSurface->w)/2+10, 4*SCREEN_HEIGHT/5-10, tempSurface->w, tempSurface->h};
+	tempRect = {SCREEN_WIDTH/2 - (tempSurface->w)/2+5, 4*SCREEN_HEIGHT/5-5, tempSurface->w, tempSurface->h};
 	TextTexture_R[Main_Quit_H] = tempRect;
 	TextTextures[Main_Quit_H] = SDL_CreateTextureFromSurface(gRenderer, tempSurface);
 	SDL_FreeSurface(tempSurface);
@@ -264,7 +264,7 @@ void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, 
 	SDL_FreeSurface(tempSurface1);
 	
 	tempSurface1 = TTF_RenderText_Solid( bloodyFont, "PLAY AGAIN", mainColor );
-	tempRect = {SCREEN_WIDTH/5+10, 4*SCREEN_HEIGHT/5-10, tempSurface1->w, tempSurface1->h};
+	tempRect = {SCREEN_WIDTH/5+5, 4*SCREEN_HEIGHT/5-5, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Play_H] = tempRect;
 	TextTextures[Death_Play_H] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
@@ -276,7 +276,7 @@ void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, 
 	SDL_FreeSurface(tempSurface1);
 
 	tempSurface1 = TTF_RenderText_Solid( bloodyFont, "Quit", mainColor );
-	tempRect = {SCREEN_WIDTH/2+10, 4*SCREEN_HEIGHT/5-10, tempSurface1->w, tempSurface1->h};
+	tempRect = {SCREEN_WIDTH/2+5, 4*SCREEN_HEIGHT/5-5, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Quit_H] = tempRect;
 	TextTextures[Death_Quit_H] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);

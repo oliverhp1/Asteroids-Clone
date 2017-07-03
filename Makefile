@@ -2,7 +2,7 @@
 CC = g++
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
-COMPILER_FLAGS = -c -Wall
+COMPILER_FLAGS = -c -Wall -std=c++11
 
 #LINKER_FLAGS specifies the libraries we're linking against
 LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
