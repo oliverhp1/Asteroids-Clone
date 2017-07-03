@@ -37,6 +37,10 @@ bool init(){
 					printf("couldn't initialize png, error: %s\n", IMG_GetError() );
 					success = false;
 				}
+				if (TTF_Init() == -1){
+					printf("couldn't initialize ttf, error: %s\n", TTF_GetError() );
+					success = false;
+				}
 			}
 		}
 	}
@@ -157,7 +161,7 @@ bool loadFontFromText(std::string text, SDL_Color colorMap, bool laser){
 }
 
 void handleMenu(){
-	
+
 }
 
 void close(){
