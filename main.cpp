@@ -129,13 +129,13 @@ int main(int argc, char* args[]){
 							++it0;
 						}
 					}
-/*					
+					
 					if (Scollided(*it1)){
 						showDeath = true;
 						loadScore(score);
 						break;
 					}
-*/				
+				
 					if (!shot){
 						++it1;		// if shot, iterator already advanced.
 					}
@@ -149,7 +149,7 @@ int main(int argc, char* args[]){
 					SDL_RenderCopy(gRenderer, InfernoBackground, NULL, &backgroundRect);
 				}
 				else{
-					//SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
+					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
 				}
 
 				for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ++rock){

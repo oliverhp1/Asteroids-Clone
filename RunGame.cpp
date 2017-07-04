@@ -88,13 +88,13 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	}
 
 	// load ship!
-	if (!(gShip.loadFromFile("images/falcon1.jpg"))){
+	if (!(gShip.loadFromFile("images/falcon3.png"))){
 		printf("couldn't load ship\n");
 		success = false;
 	}
 
 	// load Global Asteroid texture
-	std::string pathA = "images/asteroid2.png";
+	std::string pathA = "images/asteroid.png";
 	SDL_Surface* loadSurface = IMG_Load(pathA.c_str());
 	if (loadSurface == NULL){
 		printf("load surface %s error: %s", pathA.c_str(), IMG_GetError() );
@@ -116,7 +116,7 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	}
 
 	// load global Bullet texture
-	std::string pathB = "images/bullet0.png";	// bullet0 is a transparent png
+	std::string pathB = "images/bullet.png";	// bullet is a transparent png
 	loadSurface = IMG_Load(pathB.c_str());
 	if (loadSurface == NULL){
 		printf("load surface %s error: %s", pathB.c_str(), IMG_GetError() );
@@ -347,14 +347,14 @@ void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles
 void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, leave out the score til game over.
 	SDL_Surface* tempSurface1 = NULL;
 
-	tempSurface1 = TTF_RenderText_Solid( bloodyFont, "PREPARE FOR", deathColor );
-	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/3, tempSurface1->w, tempSurface1->h};
+	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "PREPARE FOR", deathColor );
+	SDL_Rect tempRect = {SCREEN_WIDTH/2 - 3*(tempSurface1->w)/5, SCREEN_HEIGHT/3 - (tempSurface1->h)/4, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Instructions_Screen_U] = tempRect;
 	TextTextures[Instructions_Screen_U] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
 
 	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "INFERNO MODE", deathColor );
-	tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/2, tempSurface1->w, tempSurface1->h};
+	tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/2 + (tempSurface1->h)/4, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Instructions_Screen_D] = tempRect;
 	TextTextures[Instructions_Screen_D] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
