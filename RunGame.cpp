@@ -33,9 +33,9 @@ bool init(){
 				SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0xFF );
 
 				//initialize png loading
-				int imgFlags = IMG_INIT_PNG;
+				int imgFlags = IMG_INIT_PNG|IMG_INIT_JPG;
 				if (!(IMG_Init(imgFlags) & imgFlags)){
-					printf("couldn't initialize png, error: %s\n", IMG_GetError() );
+					printf("couldn't initialize png and jpg, error: %s\n", IMG_GetError() );
 					success = false;
 				}
 				if (TTF_Init() == -1){
@@ -88,16 +88,16 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	}
 
 	// load ship!
-	if (!(gShip.loadFromFile("images/falcon_tiny.png"))){
+	if (!(gShip.loadFromFile("newImages/falcon1.jpg"))){
 		printf("couldn't load ship\n");
 		success = false;
 	}
 
 	// load Global Asteroid texture
-	std::string pathA = "images/asteroid.png";
+	std::string pathA = "newImages/asteroid1.jpg";
 	SDL_Surface* loadSurface = IMG_Load(pathA.c_str());
 	if (loadSurface == NULL){
-		printf("load surface %s error: %s", "asteroid.png", IMG_GetError() );
+		printf("load surface %s error: %s", pathA.c_str(), IMG_GetError() );
 		success = false;
 	}
 	else{
@@ -116,14 +116,14 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	}
 
 	// load global Bullet texture
-	std::string pathB = "images/bullet_tiny.png";
+	std::string pathB = "newImages/bullet1.jpg";
 	loadSurface = IMG_Load(pathB.c_str());
 	if (loadSurface == NULL){
-		printf("load surface %s error: %s", "bullet.png", IMG_GetError() );
+		printf("load surface %s error: %s", pathB.c_str(), IMG_GetError() );
 		success = false;
 	}
 	else{
-		SDL_SetColorKey(loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 00,00,00) );
+		SDL_SetColorKey(loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 1,1,1) );
 
 		BulletWidth = loadSurface->w;
 		BulletHeight = loadSurface->h;
