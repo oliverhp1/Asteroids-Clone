@@ -88,13 +88,13 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	}
 
 	// load ship!
-	if (!(gShip.loadFromFile("newImages/falcon1.jpg"))){
+	if (!(gShip.loadFromFile("newImages/falcon2.jpg"))){
 		printf("couldn't load ship\n");
 		success = false;
 	}
 
 	// load Global Asteroid texture
-	std::string pathA = "newImages/asteroid1.jpg";
+	std::string pathA = "newImages/asteroid2.jpg";
 	SDL_Surface* loadSurface = IMG_Load(pathA.c_str());
 	if (loadSurface == NULL){
 		printf("load surface %s error: %s", pathA.c_str(), IMG_GetError() );
