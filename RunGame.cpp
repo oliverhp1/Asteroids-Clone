@@ -153,12 +153,12 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 		SDL_FreeSurface(loadSurface);
 		loadSurface = NULL;
 	}
-
+/*
 	// load global inferno texture
 	std::string pathI = "images/inferno.png";
-	loadSurface = SDL_LoadBMP(pathI.c_str());
+	loadSurface = IMG_Load(pathI.c_str());
 	if (loadSurface == NULL){
-		printf("error loading inferno: %s\n", SDL_GetError());
+		printf("error loading inferno: %s\n", IMG_GetError());
 		success = false;
 	}
 	else{
@@ -170,7 +170,7 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 		SDL_FreeSurface(loadSurface);
 		loadSurface = NULL;
 	}
-
+*/
 	// load main menu and death menu textures
 	loadMainMenu();
 
@@ -290,11 +290,12 @@ int handleDeathDisp(){
 
 	return res;
 }
-
-void handleInferno(backgroundRect){
-	SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
+/*
+void handleInferno(SDL_Rect iRect){
+	SDL_RenderCopy(gRenderer, Background, NULL, &iRect);
 	SDL_RenderCopyEx(gRenderer, TextTextures[Instructions_Screen], NULL, &TextTexture_R[Instructions_Screen], 0, NULL, SDL_FLIP_NONE);					
 }
+*/
 
 void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles into TextTexture_R
 	// since we have to manually place all the text textures, abstracting these isn't much more convenient
@@ -345,15 +346,15 @@ void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles
 
 void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, leave out the score til game over.
 	SDL_Surface* tempSurface1 = NULL;
-
+/*
 	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "PREPARE FOR INFERNO MODE", deathColor );
 	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/2 - (tempSurface1->h)/2, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Instructions_Screen] = tempRect;
 	TextTextures[Instructions_Screen] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
-
+*/
 	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "YOU HAVE DIED", deathColor );
-	tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/8, tempSurface1->w, tempSurface1->h};
+	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/8, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Dead] = tempRect;
 	TextTextures[Death_Dead] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
@@ -413,15 +414,22 @@ void close(){
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
 	gRenderer = NULL;
+	TTF_CloseFont(laserFontB);
+	TTF_CloseFont(bloodyFontB);
 	TTF_CloseFont(laserFont);
 	TTF_CloseFont(bloodyFont);
+	TTF_CloseFont(laserFontS);
+	TTF_CloseFont(bloodyFontS);
 
-	for (int d = 0; d < 13; d++){
+	for (int d = 0; d < 15; d++){
 		SDL_DestroyTexture(TextTextures[d]);
 	}
 	
 	SDL_DestroyTexture(AsteroidTexture);
 	SDL_DestroyTexture(BulletTexture);
+	SDL_DestroyTexture(Background);
+//	SDL_DestroyTexture(BulletTexture);
+	
 
 	SDL_Quit();
 	IMG_Quit();

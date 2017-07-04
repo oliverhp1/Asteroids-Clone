@@ -28,7 +28,8 @@ int main(int argc, char* args[]){
 			SDL_Rect backgroundRect = {0,0,SCREEN_WIDTH,SCREEN_HEIGHT};
 			bool showMenu = true;
 			bool showDeath = false;
-			bool inferno = false;
+//			bool showInferno = false;
+		//	bool inferno = false;
 			bool plusDifficulty = false;
 
 			while (!quit){
@@ -39,22 +40,25 @@ int main(int argc, char* args[]){
 					while (SDL_PollEvent(&e) != 0){
 						switch ( handleMenuClick(e, button) ){		//1: play, 2: instructions (inferno), 3: quit.
 							case 1: showMenu = false; break;
-							case 2: showMenu = false; inferno = true; break;
+							case 2: showMenu = false; quit= true; break;
 							case 3: showMenu = false; quit = true; break;
 						}
 					}
 					SDL_RenderPresent(gRenderer);	// update screen
 				}
-				if (inferno){
+/*
+				if (showInferno){
 					SDL_RenderClear(gRenderer);
 					handleInferno(backgroundRect);
 					SDL_RenderPresent(gRenderer);
 					SDL_Delay(2000);
+					showInferno = false;
+					inferno = true;
 					AsteroidVelocityScale = 5;
 				}
-
+*/
 				while (showDeath){		// death menu
-					inferno = false;	// reset this
+//					inferno = false;	// reset this
 					SDL_RenderClear(gRenderer);
 					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
 					int button = handleDeathDisp();
@@ -142,8 +146,12 @@ int main(int argc, char* args[]){
 				// all drawing- background, rocks, bullets, ship.
 				SDL_RenderClear(gRenderer);		// clear screen
 
-				if (inferno){SDL_RenderCopy(gRenderer, InfernoBackground, NULL, &backgroundRect);}
-				else{SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);}
+			//	if (inferno){
+			//		SDL_RenderCopy(gRenderer, InfernoBackground, NULL, &backgroundRect);
+			//	}
+			//	else{
+				SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
+			//	}
 
 				for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ++rock){
 					rock->render();
