@@ -88,13 +88,13 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	}
 
 	// load ship!
-	if (!(gShip.loadFromFile("newImages/falcon4.png"))){
+	if (!(gShip.loadFromFile("images/falcon1.jpg"))){
 		printf("couldn't load ship\n");
 		success = false;
 	}
 
 	// load Global Asteroid texture
-	std::string pathA = "newImages/asteroid4.png";
+	std::string pathA = "images/asteroid2.png";
 	SDL_Surface* loadSurface = IMG_Load(pathA.c_str());
 	if (loadSurface == NULL){
 		printf("load surface %s error: %s", pathA.c_str(), IMG_GetError() );
@@ -116,15 +116,14 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	}
 
 	// load global Bullet texture
-	std::string pathB = "newImages/bullet2.jpg";
+	std::string pathB = "images/bullet0.png";	// bullet0 is a transparent png
 	loadSurface = IMG_Load(pathB.c_str());
 	if (loadSurface == NULL){
 		printf("load surface %s error: %s", pathB.c_str(), IMG_GetError() );
 		success = false;
 	}
 	else{
-		SDL_SetColorKey(loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 0, 0, 0) );
-
+		//SDL_SetColorKey(loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 0, 0, 0) );
 		BulletWidth = loadSurface->w;
 		BulletHeight = loadSurface->h;
 
