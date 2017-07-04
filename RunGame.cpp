@@ -2,7 +2,7 @@
 #include "globals.h"
 
 
-enum TextTexture_I {Main_Asteroids, Main_Play, Main_Play_H, Main_Instruct, Main_Instruct_H, Main_Quit, Main_Quit_H, Instructions_Screen, Death_Dead, Death_Score, Death_Play, Death_Play_H, Death_Quit, Death_Quit_H, Death_Return, Death_Return_H};
+enum TextTexture_I {Main_Asteroids, Main_Play, Main_Play_H, Main_Instruct, Main_Instruct_H, Main_Quit, Main_Quit_H, Instructions_Screen_U, Instructions_Screen_D, Death_Dead, Death_Score, Death_Play, Death_Play_H, Death_Quit, Death_Quit_H, Death_Return, Death_Return_H};
 
 
 bool init(){
@@ -30,7 +30,7 @@ bool init(){
 			}
 			else{
 				//set renderer draw colour
-				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+				SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0xFF );
 
 				//initialize png loading
 				int imgFlags = IMG_INIT_PNG;
@@ -153,7 +153,7 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 		SDL_FreeSurface(loadSurface);
 		loadSurface = NULL;
 	}
-/*
+
 	// load global inferno texture
 	std::string pathI = "images/inferno.png";
 	loadSurface = IMG_Load(pathI.c_str());
@@ -170,7 +170,7 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 		SDL_FreeSurface(loadSurface);
 		loadSurface = NULL;
 	}
-*/
+
 	// load main menu and death menu textures
 	loadMainMenu();
 
@@ -290,12 +290,13 @@ int handleDeathDisp(){
 
 	return res;
 }
-/*
+
 void handleInferno(SDL_Rect iRect){
 	SDL_RenderCopy(gRenderer, Background, NULL, &iRect);
-	SDL_RenderCopyEx(gRenderer, TextTextures[Instructions_Screen], NULL, &TextTexture_R[Instructions_Screen], 0, NULL, SDL_FLIP_NONE);					
+	SDL_RenderCopyEx(gRenderer, TextTextures[Instructions_Screen_U], NULL, &TextTexture_R[Instructions_Screen_U], 0, NULL, SDL_FLIP_NONE);					
+	SDL_RenderCopyEx(gRenderer, TextTextures[Instructions_Screen_D], NULL, &TextTexture_R[Instructions_Screen_D], 0, NULL, SDL_FLIP_NONE);					
 }
-*/
+
 
 void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles into TextTexture_R
 	// since we have to manually place all the text textures, abstracting these isn't much more convenient
@@ -346,15 +347,21 @@ void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles
 
 void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, leave out the score til game over.
 	SDL_Surface* tempSurface1 = NULL;
-/*
-	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "PREPARE FOR INFERNO MODE", deathColor );
-	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/2 - (tempSurface1->h)/2, tempSurface1->w, tempSurface1->h};
-	TextTexture_R[Instructions_Screen] = tempRect;
-	TextTextures[Instructions_Screen] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
+
+	tempSurface1 = TTF_RenderText_Solid( bloodyFont, "PREPARE FOR", deathColor );
+	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/3, tempSurface1->w, tempSurface1->h};
+	TextTexture_R[Instructions_Screen_U] = tempRect;
+	TextTextures[Instructions_Screen_U] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
-*/
+
+	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "INFERNO MODE", deathColor );
+	tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/2, tempSurface1->w, tempSurface1->h};
+	TextTexture_R[Instructions_Screen_D] = tempRect;
+	TextTextures[Instructions_Screen_D] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
+	SDL_FreeSurface(tempSurface1);
+
 	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "YOU HAVE DIED", deathColor );
-	SDL_Rect tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/8, tempSurface1->w, tempSurface1->h};
+	tempRect = {SCREEN_WIDTH/2 - (tempSurface1->w)/2, SCREEN_HEIGHT/8, tempSurface1->w, tempSurface1->h};
 	TextTexture_R[Death_Dead] = tempRect;
 	TextTextures[Death_Dead] = SDL_CreateTextureFromSurface(gRenderer, tempSurface1);
 	SDL_FreeSurface(tempSurface1);
@@ -421,7 +428,7 @@ void close(){
 	TTF_CloseFont(laserFontS);
 	TTF_CloseFont(bloodyFontS);
 
-	for (int d = 0; d < 15; d++){
+	for (int d = 0; d < 17; d++){
 		SDL_DestroyTexture(TextTextures[d]);
 	}
 	
@@ -494,6 +501,7 @@ void resetGame(){
 	// clear asteroids, bullets, put ship back at mid screen, set score = 0
 	score = 0;
 	gShip.resetPosition();
+	MAX_N_ASTEROIDS = 8;
 	N_ASTEROIDS = 0;
 	AsteroidVelocityScale = 1;
 

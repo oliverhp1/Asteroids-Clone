@@ -17,7 +17,7 @@ int BulletHeight = 0;
 SDL_Texture* AsteroidTexture = NULL;
 SDL_Texture* BulletTexture = NULL;
 SDL_Texture* Background = NULL;
-//SDL_Texture* InfernoBackground = NULL;
+SDL_Texture* InfernoBackground = NULL;
 
 Ship gShip;
 
@@ -26,8 +26,8 @@ std::vector<Bullet> Fired;
 SDL_Renderer* gRenderer = NULL;
 SDL_Window* gWindow = NULL;
 
-SDL_Texture* TextTextures[15] = {NULL}; 
-SDL_Rect TextTexture_R[15] = {};
+SDL_Texture* TextTextures[17] = {NULL}; 
+SDL_Rect TextTexture_R[17] = {};
 
 TTF_Font* laserFontB = NULL;
 TTF_Font* bloodyFontB = NULL;

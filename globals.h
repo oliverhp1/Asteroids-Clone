@@ -24,7 +24,7 @@ extern int AsteroidWidth0, AsteroidHeight0, BulletWidth, BulletHeight;
 extern SDL_Texture* AsteroidTexture;
 extern SDL_Texture* BulletTexture;
 extern SDL_Texture* Background;
-//extern SDL_Texture* InfernoBackground;
+extern SDL_Texture* InfernoBackground;
 
 extern Ship gShip;
 
@@ -33,8 +33,8 @@ extern std::vector<Bullet> Fired;
 extern SDL_Renderer* gRenderer;
 extern SDL_Window* gWindow;
 
-extern SDL_Texture* TextTextures[15];
-extern SDL_Rect TextTexture_R[15];
+extern SDL_Texture* TextTextures[17];
+extern SDL_Rect TextTexture_R[17];
 
 extern TTF_Font* laserFontB;
 extern TTF_Font* bloodyFontB;
