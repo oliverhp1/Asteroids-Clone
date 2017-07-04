@@ -30,7 +30,7 @@ bool init(){
 			}
 			else{
 				//set renderer draw colour
-				SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0xFF );
+				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );	// black or white?
 
 				//initialize png loading
 				int imgFlags = IMG_INIT_PNG|IMG_INIT_JPG;

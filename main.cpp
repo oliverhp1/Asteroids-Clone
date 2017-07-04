@@ -129,13 +129,13 @@ int main(int argc, char* args[]){
 							++it0;
 						}
 					}
-					
+/*					
 					if (Scollided(*it1)){
 						showDeath = true;
 						loadScore(score);
 						break;
 					}
-	
+*/				
 					if (!shot){
 						++it1;		// if shot, iterator already advanced.
 					}
