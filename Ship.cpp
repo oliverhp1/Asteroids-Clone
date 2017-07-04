@@ -25,7 +25,7 @@ bool Ship::loadFromFile(std::string path){
 		printf("load %s error: %s\n", path.c_str(), IMG_GetError() );
 	}
 	else{
-		SDL_SetColorKey( loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 0, 0, 0) );
+		SDL_SetColorKey( loadSurface, SDL_TRUE, SDL_MapRGB(loadSurface->format, 46, 58, 54) );
 
 		sWidth = loadSurface->w;
 		sHeight = loadSurface->h;
