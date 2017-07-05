@@ -24,8 +24,10 @@ void loadMainMenu();
 void loadScore(int);
 void loadDeathScreen();
 
+void renderAll(bool,SDL_Rect);
+
 bool loadExplosion();
-void explosion();
+void explosion(bool,SDL_Rect);
 bool collided(Bullet, Asteroid);
 bool Scollided(Asteroid);
 void resetGame();

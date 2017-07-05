@@ -132,7 +132,7 @@ int main(int argc, char* args[]){
 					
 					if (Scollided(*it1)){
 						showDeath = true;
-						explosion();		// takes care of loop for explosion animation. also renders everything else
+						explosion(inferno,backgroundRect);		// takes care of loop for explosion animation. also renders everything else
 						loadScore(score);
 						break;
 					}
@@ -150,21 +150,8 @@ int main(int argc, char* args[]){
 				// all drawing- background, rocks, bullets, ship.
 				SDL_RenderClear(gRenderer);		// clear screen
 
-				if (inferno){
-					SDL_RenderCopy(gRenderer, InfernoBackground, NULL, &backgroundRect);
-				}
-				else{
-					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
-				}
-
-				for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ++rock){
-					rock->render();
-				}
-				for (std::vector<Bullet>::iterator bullet = Fired.begin(); bullet != Fired.end(); ++bullet){
-					bullet->render();
-				}
-
-				gShip.render();
+				renderAll(inferno,backgroundRect);
+				
 				SDL_RenderPresent(gRenderer);	// update screen
 			
 			}

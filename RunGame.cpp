@@ -437,8 +437,26 @@ bool loadExplosion(){
 	return success;
 }
 
+void renderAll(bool inferno, SDL_Rect backgroundRect){
+	if (inferno){
+		SDL_RenderCopy(gRenderer, InfernoBackground, NULL, &backgroundRect);
+	}
+	else{
+		SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
+	}
 
-void explosion(){		// take care of the whole rendering loop for the explosion
+	for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ++rock){
+		rock->render();
+	}
+	for (std::vector<Bullet>::iterator bullet = Fired.begin(); bullet != Fired.end(); ++bullet){
+		bullet->render();
+	}
+
+	gShip.render();
+}
+
+
+void explosion(bool inferno, SDL_Rect backgroundRect){		// take care of the whole rendering loop for the explosion
 	int slowDown = 4;
 	SDL_Rect destRect = {0,0,0,0};
 	SDL_Rect srcRect = {0,0,0,0};
@@ -446,6 +464,7 @@ void explosion(){		// take care of the whole rendering loop for the explosion
 		destRect = {gShip.getX()-ExplosionWidth/2, gShip.getY()-ExplosionHeight/2, ExplosionHeight, ExplosionHeight};
 		srcRect = ExplosionClips[frame/slowDown];
 		SDL_RenderClear(gRenderer);
+		renderAll(inferno,backgroundRect);
 		SDL_RenderCopy(gRenderer, ExplosionSpriteSheet, &srcRect, &destRect);
 		SDL_RenderPresent(gRenderer);
 	}
