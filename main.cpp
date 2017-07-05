@@ -151,6 +151,7 @@ int main(int argc, char* args[]){
 				SDL_RenderClear(gRenderer);		// clear screen
 
 				renderAll(inferno,backgroundRect);
+				gShip.render();			// don't render this in renderAll since we don't want it for the explosion
 				
 				SDL_RenderPresent(gRenderer);	// update screen
 			

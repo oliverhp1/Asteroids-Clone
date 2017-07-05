@@ -451,13 +451,11 @@ void renderAll(bool inferno, SDL_Rect backgroundRect){
 	for (std::vector<Bullet>::iterator bullet = Fired.begin(); bullet != Fired.end(); ++bullet){
 		bullet->render();
 	}
-
-	gShip.render();
 }
 
 
 void explosion(bool inferno, SDL_Rect backgroundRect){		// take care of the whole rendering loop for the explosion
-	int slowDown = 4;
+	int slowDown = 1;	// if too fast, increase this
 	SDL_Rect destRect = {0,0,0,0};
 	SDL_Rect srcRect = {0,0,0,0};
 	for (int frame = 0; frame < slowDown*numExplosions; frame++){
