@@ -419,7 +419,7 @@ bool loadExplosion(){
 	else{
 		ExplosionWidth = loadSurface3->w;
 		ExplosionHeight = loadSurface3->h;
-		ExplosionWidth /= numExplosions;			// might cause roundoff error. check this if explosion looks funny
+		ExplosionWidth = ExplosionWidth/numExplosions+1;			// might cause roundoff error. check this if explosion looks funny
 
 		ExplosionSpriteSheet = SDL_CreateTextureFromSurface(gRenderer, loadSurface3);
 		if (ExplosionSpriteSheet == NULL){
@@ -455,7 +455,7 @@ void renderAll(bool inferno, SDL_Rect backgroundRect){
 
 
 void explosion(bool inferno, SDL_Rect backgroundRect){		// take care of the whole rendering loop for the explosion
-	int slowDown = 1;	// if too fast, increase this
+	int slowDown = 4;	// if too fast, increase this
 	SDL_Rect destRect = {0,0,0,0};
 	SDL_Rect srcRect = {0,0,0,0};
 	for (int frame = 0; frame < slowDown*numExplosions; frame++){
