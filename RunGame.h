@@ -24,7 +24,7 @@ void loadMainMenu();
 void loadScore(int);
 void loadDeathScreen();
 
-void loadExplosion();
+bool loadExplosion();
 void explosion();
 bool collided(Bullet, Asteroid);
 bool Scollided(Asteroid);

@@ -408,9 +408,10 @@ void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, 
 
 bool loadExplosion(){
 	//load texture, put widths, load up the clips too
-	SDL_Surface* tempSurface3 = NULL;
+	bool success = true;
+	SDL_Surface* loadSurface3 = NULL;
 	std::string pathE = "images/explosion.png";
-	tempSurface3 = IMG_Load(pathE.c_str());
+	loadSurface3 = IMG_Load(pathE.c_str());
 	if (loadSurface3 == NULL){
 		printf("load background error: %s\n", IMG_GetError() );
 		success = false;
@@ -442,10 +443,10 @@ void explosion(){		// take care of the whole rendering loop for the explosion
 	SDL_Rect destRect = {0,0,0,0};
 	SDL_Rect srcRect = {0,0,0,0};
 	for (int frame = 0; frame < slowDown*numExplosions; frame++){
-		destRect = {gShip.getPosX()-ExplosionWidth/2, gShip.getPosY()-ExplosionHeight/2, ExplosionHeight, ExplosionHeight};
+		destRect = {gShip.getX()-ExplosionWidth/2, gShip.getY()-ExplosionHeight/2, ExplosionHeight, ExplosionHeight};
 		srcRect = ExplosionClips[frame/slowDown];
 		SDL_RenderClear(gRenderer);
-		SDL_RenderCopy(gRenderer, ExplosionSpriteSheet, &srcRect, &destRect)
+		SDL_RenderCopy(gRenderer, ExplosionSpriteSheet, &srcRect, &destRect);
 		SDL_RenderPresent(gRenderer);
 	}
 }

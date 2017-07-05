@@ -132,7 +132,7 @@ int main(int argc, char* args[]){
 					
 					if (Scollided(*it1)){
 						showDeath = true;
-						explosion();		// takes care of loop for explosion animation
+						explosion();		// takes care of loop for explosion animation. also renders everything else
 						loadScore(score);
 						break;
 					}

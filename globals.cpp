@@ -23,7 +23,7 @@ SDL_Texture* Background = NULL;
 SDL_Texture* InfernoBackground = NULL;
 SDL_Texture* ExplosionSpriteSheet = NULL;		
 
-SDL_Rect ExplosionClips[numExplosions] = {};
+SDL_Rect ExplosionClips[8] = {};
 
 Ship gShip;
 
