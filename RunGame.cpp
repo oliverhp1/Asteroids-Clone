@@ -170,9 +170,11 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 		loadSurface = NULL;
 	}
 
-	// load main menu and death menu textures
+	// load main menu and death menu textures, and explosion sprite sheet
 	loadMainMenu();
-
+	if (!loadExplosion()){
+		success = false;
+	}
 	loadDeathScreen();
 
 	return success;
@@ -345,6 +347,7 @@ void loadMainMenu(){	// load up main menu textures into TextTextures, rectangles
 }
 
 void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, leave out the score til game over.
+	// since we have to manually place all the text textures, abstracting these isn't much more convenient
 	SDL_Surface* tempSurface1 = NULL;
 
 	tempSurface1 = TTF_RenderText_Solid( bloodyFontB, "PREPARE FOR", deathColor );
@@ -403,6 +406,50 @@ void loadDeathScreen(){		// loads death menu TextTextures and rectangles. note, 
 	tempSurface1 = NULL;
 }
 
+bool loadExplosion(){
+	//load texture, put widths, load up the clips too
+	SDL_Surface* tempSurface3 = NULL;
+	std::string pathE = "images/explosion.png";
+	tempSurface3 = IMG_Load(pathE.c_str());
+	if (loadSurface3 == NULL){
+		printf("load background error: %s\n", IMG_GetError() );
+		success = false;
+	}
+	else{
+		ExplosionWidth = loadSurface3->w;
+		ExplosionHeight = loadSurface3->h;
+		ExplosionWidth /= numExplosions;			// might cause roundoff error. check this if explosion looks funny
+
+		ExplosionSpriteSheet = SDL_CreateTextureFromSurface(gRenderer, loadSurface3);
+		if (ExplosionSpriteSheet == NULL){
+			printf("explosion spritesheet texture error: %s\n", SDL_GetError() );
+			success = false;
+		}
+		SDL_FreeSurface(loadSurface3);
+		loadSurface3 = NULL;
+	}
+	SDL_Rect tempRect3 = {0,0,0,0};
+	for (int m = 0; m < numExplosions; m++){		// loading source rectangles
+		tempRect3 = {m*ExplosionWidth, 0, ExplosionWidth, ExplosionHeight};
+		ExplosionClips[m] = tempRect3;
+	}
+	return success;
+}
+
+
+void explosion(){		// take care of the whole rendering loop for the explosion
+	int slowDown = 4;
+	SDL_Rect destRect = {0,0,0,0};
+	SDL_Rect srcRect = {0,0,0,0};
+	for (int frame = 0; frame < slowDown*numExplosions; frame++){
+		destRect = {gShip.getPosX()-ExplosionWidth/2, gShip.getPosY()-ExplosionHeight/2, ExplosionHeight, ExplosionHeight};
+		srcRect = ExplosionClips[frame/slowDown];
+		SDL_RenderClear(gRenderer);
+		SDL_RenderCopy(gRenderer, ExplosionSpriteSheet, &srcRect, &destRect)
+		SDL_RenderPresent(gRenderer);
+	}
+}
+
 void loadScore(int score){
 	SDL_Surface* tempSurface2 = NULL;
 	std::string scoreStr = "Score: " + std::to_string(score);
@@ -413,34 +460,7 @@ void loadScore(int score){
 	SDL_FreeSurface(tempSurface2);
 }
 
-void close(){
-	gShip.free();
 
-	SDL_DestroyRenderer(gRenderer);
-	SDL_DestroyWindow(gWindow);
-	gWindow = NULL;
-	gRenderer = NULL;
-	TTF_CloseFont(laserFontB);
-	TTF_CloseFont(bloodyFontB);
-	TTF_CloseFont(laserFont);
-	TTF_CloseFont(bloodyFont);
-	TTF_CloseFont(laserFontS);
-	TTF_CloseFont(bloodyFontS);
-
-	for (int d = 0; d < 17; d++){
-		SDL_DestroyTexture(TextTextures[d]);
-	}
-	
-	SDL_DestroyTexture(AsteroidTexture);
-	SDL_DestroyTexture(BulletTexture);
-	SDL_DestroyTexture(Background);
-//	SDL_DestroyTexture(BulletTexture);
-	
-
-	SDL_Quit();
-	IMG_Quit();
-	TTF_Quit();
-}
 
 bool collided(Bullet b1, Asteroid a1){
 	double angle = b1.getAngle();
@@ -513,3 +533,29 @@ void resetGame(){
 }
 
 
+void close(){
+	gShip.free();
+
+	SDL_DestroyRenderer(gRenderer);
+	SDL_DestroyWindow(gWindow);
+	gWindow = NULL;
+	gRenderer = NULL;
+	TTF_CloseFont(laserFontB);
+	TTF_CloseFont(bloodyFontB);
+	TTF_CloseFont(laserFont);
+	TTF_CloseFont(bloodyFont);
+	TTF_CloseFont(laserFontS);
+	TTF_CloseFont(bloodyFontS);
+
+	for (int d = 0; d < 17; d++){
+		SDL_DestroyTexture(TextTextures[d]);
+	}
+	
+	SDL_DestroyTexture(AsteroidTexture);
+	SDL_DestroyTexture(BulletTexture);
+	SDL_DestroyTexture(Background);	
+
+	SDL_Quit();
+	IMG_Quit();
+	TTF_Quit();
+}

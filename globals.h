@@ -16,15 +16,19 @@ extern int MAX_N_ASTEROIDS;
 extern int N_ASTEROIDS;
 extern int AsteroidVelocityScale;
 extern int score;
+extern int numExplosions;
 extern std::vector<Asteroid> Asteroids;
 
-extern int AsteroidWidth0, AsteroidHeight0, BulletWidth, BulletHeight;
+extern int AsteroidWidth0, AsteroidHeight0, BulletWidth, BulletHeight, ExplosionWidth, ExplosionHeight;
 
 
 extern SDL_Texture* AsteroidTexture;
 extern SDL_Texture* BulletTexture;
 extern SDL_Texture* Background;
 extern SDL_Texture* InfernoBackground;
+extern SDL_Texture* ExplosionSpriteSheet;
+
+extern SDL_Rect ExplosionClips[numExplosions];		// EXPLOSION- COULD BE A PROBLEM
 
 extern Ship gShip;
 

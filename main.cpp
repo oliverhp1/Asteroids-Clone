@@ -132,6 +132,7 @@ int main(int argc, char* args[]){
 					
 					if (Scollided(*it1)){
 						showDeath = true;
+						explosion();		// takes care of loop for explosion animation
 						loadScore(score);
 						break;
 					}
@@ -139,6 +140,10 @@ int main(int argc, char* args[]){
 					if (!shot){
 						++it1;		// if shot, iterator already advanced.
 					}
+				}
+
+				if (showDeath){
+					continue;
 				}
 
 
