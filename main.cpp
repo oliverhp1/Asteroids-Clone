@@ -71,7 +71,10 @@ int main(int argc, char* args[]){
 					int button = handleDeathDisp();
 					while (SDL_PollEvent( &e ) != 0){
 						switch (handleMenuClick(e, button)){		//1: play, 2: main menu, 3: quit
-							case 1: showDeath = false; Mix_HaltMusic(); showInferno = true; resetGame(); break;
+							case 1: showDeath = false; Mix_HaltMusic(); 
+								if (inferno){showInferno = true;}
+								resetGame();
+								break;
 							case 2: showDeath = false; Mix_HaltMusic(); inferno = false; showMenu = true; resetGame(); break;
 							case 3: showDeath = false; Mix_HaltMusic(); quit = true; break;
 						}
