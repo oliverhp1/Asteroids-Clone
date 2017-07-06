@@ -149,7 +149,7 @@ int main(int argc, char* args[]){
 						showDeath = true;
 						Mix_HaltMusic();		// stop whatever's playing
 						Mix_PlayChannel(-1,shot,0);			// shot explosion sound here?
-						explosion(inferno,backgroundRect);		// takes care of loop for explosion animation. also renders everything else
+						explosion(inferno,infernoRect);		// takes care of loop for explosion animation. also renders everything else
 						loadScore(score);
 						break;
 					}

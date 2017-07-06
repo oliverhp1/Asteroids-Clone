@@ -477,7 +477,7 @@ void renderAll(bool inferno, /*SDL_Rect backgroundRect,*/ SDL_Rect infernoRect){
 }
 
 
-void explosion(bool inferno, SDL_Rect backgroundRect){		// take care of the whole rendering loop for the explosion
+void explosion(bool inferno, SDL_Rect infernoRect){		// take care of the whole rendering loop for the explosion
 	int slowDown = 4;	// if too fast, increase this
 	SDL_Rect destRect = {0,0,0,0};
 	SDL_Rect srcRect = {0,0,0,0};
@@ -485,7 +485,7 @@ void explosion(bool inferno, SDL_Rect backgroundRect){		// take care of the whol
 		destRect = {gShip.getX()-ExplosionWidth/2, gShip.getY()-ExplosionHeight/2, ExplosionHeight, ExplosionHeight};
 		srcRect = ExplosionClips[frame/slowDown];
 		SDL_RenderClear(gRenderer);
-		renderAll(inferno,backgroundRect);
+		renderAll(inferno,infernoRect);
 		SDL_RenderCopy(gRenderer, ExplosionSpriteSheet, &srcRect, &destRect);
 		SDL_RenderPresent(gRenderer);
 	}
