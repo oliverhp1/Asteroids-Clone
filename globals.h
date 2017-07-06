@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 #include <vector>
 
 #include "Asteroid.h"
@@ -46,6 +47,11 @@ extern TTF_Font* laserFont;
 extern TTF_Font* bloodyFont;
 extern TTF_Font* laserFontS;
 extern TTF_Font* bloodyFontS;
+
+extern Mix_Music* menuMusic = NULL;
+extern Mix_Music* deathMusic = NULL;
+extern Mix_Chunk* shoot = NULL;
+extern Mix_Chunk* shot = NULL;
 
 extern SDL_Color mainColor;		// silver ish.  Also use this color for death screen selecting
 extern SDL_Color mainColorH;	// metallic blue? but not too close to cyan

@@ -7,7 +7,7 @@ enum TextTexture_I {Main_Asteroids, Main_Play, Main_Play_H, Main_Instruct, Main_
 
 bool init(){
 	bool success = true;
-	if (SDL_Init(SDL_INIT_VIDEO) < 0){
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0){
 		printf("sdl initialize error: %s\n", SDL_GetError() );
 		success = false;
 	}
@@ -30,7 +30,7 @@ bool init(){
 			}
 			else{
 				//set renderer draw colour
-				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );	// black or white?
+				SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0xFF );	// black or white?
 
 				//initialize png loading
 				int imgFlags = IMG_INIT_PNG|IMG_INIT_JPG;
@@ -40,6 +40,10 @@ bool init(){
 				}
 				if (TTF_Init() == -1){
 					printf("couldn't initialize ttf, error: %s\n", TTF_GetError() );
+					success = false;
+				}
+				if (MIX_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){			// if laggy, play with this (bitrate)
+					printf("couldn't initialize mix, error: %s\n", MIX_GetError() );
 					success = false;
 				}
 			}
@@ -169,6 +173,16 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 		SDL_FreeSurface(loadSurface);
 		loadSurface = NULL;
 	}
+
+	// load music
+	menuMusic = MIX_LoadMUS("sounds/imperial_march.wav");
+	if (menuMusic == NULL){printf("couldn't load menu music, error: %s\n",MIX_GetError()); success = false;}
+	deathMusic = MIX_LoadMUS("sounds/reaper_of_souls.wav");
+	if (menuMusic == NULL){printf("couldn't load death music, error: %s\n",MIX_GetError()); success = false;}
+	shoot = MIX_LoadWAV("sounds/gun0.wav");
+	if (shoot == NULL){printf("couldn't load shoot sound, error: %s\n",MIX_GetError()); success = false;}
+	shot = MIX_LoadWAV("sounds/explosion.wav");
+	if (shot == NULL){printf("couldn't load shot sound, error: %s\n",MIX_GetError()); success = false;}
 
 	// load main menu and death menu textures, and explosion sprite sheet
 	loadMainMenu();
