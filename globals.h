@@ -31,7 +31,7 @@ extern SDL_Texture* Background;
 extern SDL_Texture* InfernoBackground;
 extern SDL_Texture* ExplosionSpriteSheet;
 
-extern SDL_Rect ExplosionClips[8];		// EXPLOSION- COULD BE A PROBLEM
+extern SDL_Rect ExplosionClips[8];
 
 extern Ship gShip;
 

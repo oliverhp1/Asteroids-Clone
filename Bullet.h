@@ -10,7 +10,6 @@ class Bullet{
 public:
 	Bullet();
 	~Bullet();
-//	void free();
 
 	static const int bVelocity = 23;
 
@@ -22,8 +21,6 @@ public:
 	void render();
 
 private:
-//	SDL_Texture* bTexture;
 	double bAngle;
 	int bPosX, bPosY;
-//	int bWidth, bHeight;	// for rendering rectangle
 };

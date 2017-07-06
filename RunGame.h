@@ -15,7 +15,7 @@
 bool init();
 bool loadMedia();
 
-// all of these for the menus
+// all these for the menus
 int handleMenuDisp();
 int handleMenuClick(SDL_Event&, int);
 int handleDeathDisp();

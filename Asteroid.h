@@ -27,7 +27,7 @@ class Asteroid{
 	private:
 		int aPosX, aPosY;
 		int aVelX, aVelY;		// randomly generate x and y velocities independently. let bouncing take care of direction
-		int aOmega;			// randomly generate w to rotate at different speeds
+		int aOmega;			// randomly generate w (angular velocity)
 		double aAngle;
 		int AsteroidWidth, AsteroidHeight;
 };

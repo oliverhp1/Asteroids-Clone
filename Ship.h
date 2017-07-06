@@ -22,7 +22,7 @@ class Ship{
 		void handleEvent( SDL_Event &e );	// adjust pos/vel
 		void move();
 
-		void render();	// use class attributes to render
+		void render();
 		
 		int getX();
 		int getY();
