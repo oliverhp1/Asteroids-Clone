@@ -115,13 +115,13 @@ int main(int argc, char* args[]){
 				// all collisions! moves and tests if asteroids are shot, then if ship has collided
 				for (std::vector<Asteroid>::iterator it1 = Asteroids.begin(); it1 != Asteroids.end(); ){
 					it1->move();
-					bool shot = false;
+					bool isShot = false;
 
 					for (std::vector<Bullet>::iterator it0 = Fired.begin(); it0 != Fired.end(); ){
 						if (collided(*it0, *it1)){		// dereference iterators before sticking into function
 							it0 = Fired.erase(it0);
 							it1 = Asteroids.erase(it1);
-							shot = true;
+							isShot = true;
 							N_ASTEROIDS--;
 							score++;
 							break;
@@ -138,7 +138,7 @@ int main(int argc, char* args[]){
 						break;
 					}
 				
-					if (!shot){
+					if (!isShot){
 						++it1;		// if shot, iterator already advanced.
 					}
 				}
