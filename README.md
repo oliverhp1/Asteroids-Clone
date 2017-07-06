@@ -11,7 +11,10 @@ apt-get install libsdl2-ttf-dev
 
 then make.
 
+## Play Instructions
 
+Arrow keys: left to rotate CCW, right to rotate CW, up to move forward
+Space: shoot
 
 
 ## Copyright
@@ -30,5 +33,7 @@ Hector's Death, Troy OST
 explosion: http://soundbible.com/1986-Bomb-Exploding.html
 
 bullet: http://soundbible.com/2004-Gun-Shot.html
+
+See fonts folder for font licenses.
 
 Credits to LazyFoo for their SDL tutorial.
