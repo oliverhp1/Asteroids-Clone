@@ -31,7 +31,7 @@ bool init(){
 			}
 			else{
 				//set renderer draw colour
-				SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0xFF );	// black or white?
+				SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 0xFF );	// black
 
 				//initialize png loading
 				int imgFlags = IMG_INIT_PNG|IMG_INIT_JPG;
@@ -159,13 +159,16 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	}
 
 	// load global inferno texture
-	std::string pathI = "images/inferno.png";
+	std::string pathI = "images/inferno.jpg";
 	loadSurface = IMG_Load(pathI.c_str());
 	if (loadSurface == NULL){
 		printf("error loading inferno: %s\n", IMG_GetError());
 		success = false;
 	}
 	else{
+		InfernoWidth = loadSurface->w;
+		InfernoHeight = loadSurface->h;
+
 		InfernoBackground = SDL_CreateTextureFromSurface(gRenderer, loadSurface);
 		if (InfernoBackground == NULL){
 			printf("error making inferno texture: %s\n", SDL_GetError() );
@@ -456,14 +459,15 @@ bool loadExplosion(){
 	return success;
 }
 
-void renderAll(bool inferno, SDL_Rect backgroundRect){
+void renderAll(bool inferno, /*SDL_Rect backgroundRect,*/ SDL_Rect infernoRect){
 	if (inferno){
-		SDL_RenderCopy(gRenderer, InfernoBackground, NULL, &backgroundRect);
+		SDL_RenderCopy(gRenderer, InfernoBackground, NULL, &infernoRect);
 	}
+/*
 	else{
-//		SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
+		SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
 	}
-
+*/
 	for (std::vector<Asteroid>::iterator rock = Asteroids.begin(); rock != Asteroids.end(); ++rock){
 		rock->render();
 	}

@@ -27,6 +27,7 @@ int main(int argc, char* args[]){
 			bool quit = false;
 			SDL_Event e;
 			SDL_Rect backgroundRect = {0,0,SCREEN_WIDTH,SCREEN_HEIGHT};
+			SDL_Rect infernoRect = {SCREEN_WIDTH/2-InfernoWidth/2, SCREEN_HEIGHT/2-InfernoHeight/2, InfernoWidth, InfernoHeight};
 			bool showMenu = true;
 			bool showDeath = false;
 			bool showInferno = false;
@@ -163,10 +164,10 @@ int main(int argc, char* args[]){
 				}
 
 
-				// all drawing- background, rocks, bullets, ship.
+				// all drawing: background, rocks, bullets, ship.
 				SDL_RenderClear(gRenderer);		// clear screen
 
-				renderAll(inferno,backgroundRect);
+				renderAll(inferno,/*backgroundRect,*/infernoRect);		// comment out background for normal play
 				gShip.render();			// don't render this in renderAll since we don't want it for the explosion
 				
 				SDL_RenderPresent(gRenderer);	// update screen

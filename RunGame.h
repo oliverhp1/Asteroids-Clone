@@ -24,7 +24,7 @@ void loadMainMenu();
 void loadScore(int);
 void loadDeathScreen();
 
-void renderAll(bool,SDL_Rect);
+void renderAll(bool,/*SDL_Rect,*/SDL_Rect);		// comment out background for normal play
 
 bool loadExplosion();
 void explosion(bool,SDL_Rect);

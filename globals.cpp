@@ -16,6 +16,8 @@ int BulletWidth = 0;
 int BulletHeight = 0;
 int ExplosionWidth = 0;
 int ExplosionHeight = 0;
+int InfernoWidth = 0;
+int InfernoHeight = 0;
 
 SDL_Texture* AsteroidTexture = NULL;
 SDL_Texture* BulletTexture = NULL;
