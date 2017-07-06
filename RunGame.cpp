@@ -579,6 +579,15 @@ void close(){
 	TTF_CloseFont(laserFontS);
 	TTF_CloseFont(bloodyFontS);
 
+	MIX_FreeMusic(menuMusic);
+	MIX_FreeMusic(deathMusic);
+	MIX_FreeChunk(shoot);
+	MIX_FreeChunk(shot);
+	menuMusic = NULL;
+	deathMusic = NULL;
+	shoot = NULL;
+	shot = NULL;
+
 	for (int d = 0; d < 17; d++){
 		SDL_DestroyTexture(TextTextures[d]);
 	}
