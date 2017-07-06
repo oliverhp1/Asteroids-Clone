@@ -178,8 +178,12 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	// load music
 	menuMusic = Mix_LoadMUS("sounds/imperial_march.wav");
 	if (menuMusic == NULL){printf("couldn't load menu music, error: %s\n",Mix_GetError()); success = false;}
+	playMusic = Mix_LoadMUS("sounds/achilles_vs_hector.wav");
+	if (playMusic == NULL){printf("couldn't load play music, error: %s\n",Mix_GetError()); success = false;}
+	infernoMusic = Mix_LoadMUS("sounds/fever_dream.wav");
+	if (infernoMusic == NULL){printf("couldn't load inferno music, error: %s\n",Mix_GetError()); success = false;}
 	deathMusic = Mix_LoadMUS("sounds/reaper_of_souls.wav");
-	if (menuMusic == NULL){printf("couldn't load death music, error: %s\n",Mix_GetError()); success = false;}
+	if (deathMusic == NULL){printf("couldn't load death music, error: %s\n",Mix_GetError()); success = false;}
 	shoot = Mix_LoadWAV("sounds/gun0.wav");
 	if (shoot == NULL){printf("couldn't load shoot sound, error: %s\n",Mix_GetError()); success = false;}
 	shot = Mix_LoadWAV("sounds/explosion.wav");

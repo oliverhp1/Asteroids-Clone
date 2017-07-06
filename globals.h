@@ -51,6 +51,8 @@ extern TTF_Font* laserFontS;
 extern TTF_Font* bloodyFontS;
 
 extern Mix_Music* menuMusic;
+extern Mix_Music* playMusic;
+extern Mix_Music* infernoMusic;
 extern Mix_Music* deathMusic;
 extern Mix_Chunk* shoot;
 extern Mix_Chunk* shot;

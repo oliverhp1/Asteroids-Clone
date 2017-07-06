@@ -43,6 +43,8 @@ TTF_Font* laserFontS = NULL;
 TTF_Font* bloodyFontS = NULL;
 
 Mix_Music* menuMusic = NULL;
+Mix_Music* playMusic = NULL;
+Mix_Music* infernoMusic = NULL;
 Mix_Music* deathMusic = NULL;
 Mix_Chunk* shoot = NULL;
 Mix_Chunk* shot = NULL;
