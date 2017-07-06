@@ -43,8 +43,8 @@ int main(int argc, char* args[]){
 					int button = handleMenuDisp();
 					while (SDL_PollEvent(&e) != 0){
 						switch ( handleMenuClick(e, button) ){		//1: play, 2: instructions (inferno), 3: quit.
-							case 1: showMenu = false; Mix_HaltMusic(); break;
-							case 2: showMenu = false; Mix_HaltMusic(); showInferno = true; break;
+							case 1: showMenu = false; /* Mix_HaltMusic(); */ break;
+							case 2: showMenu = false; /* Mix_HaltMusic(); */ showInferno = true; break;
 							case 3: showMenu = false; Mix_HaltMusic(); quit = true; break;
 						}
 					}
