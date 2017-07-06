@@ -1,5 +1,6 @@
 #include "Ship.h"
 #include "globals.h"
+#include "Bullet.h"
 
 
 Ship::Ship(){

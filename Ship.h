@@ -7,8 +7,6 @@
 #include <math.h>
 #include <vector>
 
-#include "Bullet.h"
-
 
 class Ship{
 	public:

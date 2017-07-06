@@ -8,9 +8,7 @@
 #include <string>
 #include <math.h>
 
-#include "Asteroid.h"
-#include "Bullet.h"
-#include "Ship.h"
+
 
 
 bool init();

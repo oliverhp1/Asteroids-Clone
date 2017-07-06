@@ -1,6 +1,10 @@
 #include "RunGame.h"
 #include "globals.h"
 
+#include "Asteroid.h"
+#include "Bullet.h"
+#include "Ship.h"
+
 
 enum TextTexture_I {Main_Asteroids, Main_Play, Main_Play_H, Main_Instruct, Main_Instruct_H, Main_Quit, Main_Quit_H, Instructions_Screen_U, Instructions_Screen_D, Death_Dead, Death_Score, Death_Play, Death_Play_H, Death_Quit, Death_Quit_H, Death_Return, Death_Return_H};
 
@@ -17,7 +21,7 @@ bool init(){
 		{
 			printf( "Warning: Linear texture filtering not enabled!" );
 		}
-		gWindow = SDL_CreateWindow("Asteroids?!", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		gWindow = SDL_CreateWindow("Asteroids!", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL){
 			printf("couldn't make window error: %s\n", SDL_GetError() );
 			success = false;
