@@ -48,10 +48,10 @@ extern TTF_Font* bloodyFont;
 extern TTF_Font* laserFontS;
 extern TTF_Font* bloodyFontS;
 
-extern Mix_Music* menuMusic = NULL;
-extern Mix_Music* deathMusic = NULL;
-extern Mix_Chunk* shoot = NULL;
-extern Mix_Chunk* shot = NULL;
+extern Mix_Music* menuMusic;
+extern Mix_Music* deathMusic;
+extern Mix_Chunk* shoot;
+extern Mix_Chunk* shot;
 
 extern SDL_Color mainColor;		// silver ish.  Also use this color for death screen selecting
 extern SDL_Color mainColorH;	// metallic blue? but not too close to cyan
