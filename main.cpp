@@ -35,14 +35,17 @@ int main(int argc, char* args[]){
 
 			while (!quit){
 				while (showMenu){		// main menu
+					if (Mix_PlayingMusic() == 0){
+						Mix_PlayMusic(menuMusic, -1);
+					}
 					SDL_RenderClear(gRenderer);
 					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
 					int button = handleMenuDisp();
 					while (SDL_PollEvent(&e) != 0){
 						switch ( handleMenuClick(e, button) ){		//1: play, 2: instructions (inferno), 3: quit.
-							case 1: showMenu = false; break;
-							case 2: showMenu = false; showInferno = true; break;
-							case 3: showMenu = false; quit = true; break;
+							case 1: showMenu = false; Mix_HaltMusic(); break;
+							case 2: showMenu = false; Mix_HaltMusic(); showInferno = true; break;
+							case 3: showMenu = false; Mix_HaltMusic(); quit = true; break;
 						}
 					}
 					SDL_RenderPresent(gRenderer);	// update screen
@@ -59,14 +62,17 @@ int main(int argc, char* args[]){
 				}
 
 				while (showDeath){		// death menu
+					if (Mix_PlayingMusic() == 0){
+						Mix_PlayMusic(deathMusic,-1);
+					}
 					SDL_RenderClear(gRenderer);
 					SDL_RenderCopy(gRenderer, Background, NULL, &backgroundRect);
 					int button = handleDeathDisp();
 					while (SDL_PollEvent( &e ) != 0){
 						switch (handleMenuClick(e, button)){		//1: play, 2: main menu, 3: quit
-							case 1: showDeath = false; resetGame(); break;
-							case 2: showDeath = false; inferno = false; showMenu = true; resetGame(); break;
-							case 3: showDeath = false; quit = true; break;
+							case 1: showDeath = false; Mix_HaltMusic(); resetGame(); break;
+							case 2: showDeath = false; Mix_HaltMusic(); inferno = false; showMenu = true; resetGame(); break;
+							case 3: showDeath = false; Mix_HaltMusic(); quit = true; break;
 						}
 					}
 					SDL_RenderPresent(gRenderer);
@@ -93,7 +99,7 @@ int main(int argc, char* args[]){
 					if(e.type == SDL_QUIT){
 						quit = true;
 					}
-					gShip.handleEvent(e);
+					gShip.handleEvent(e);		// shooting sound inside here
 				}
 
 				if (N_ASTEROIDS < MAX_N_ASTEROIDS){
@@ -133,6 +139,7 @@ int main(int argc, char* args[]){
 					
 					if (Scollided(*it1)){
 						showDeath = true;
+						Mix_PlayChannel(-1,shot,0);			// shot explosion sound here?
 						explosion(inferno,backgroundRect);		// takes care of loop for explosion animation. also renders everything else
 						loadScore(score);
 						break;

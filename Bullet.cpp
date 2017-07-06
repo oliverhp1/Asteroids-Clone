@@ -5,28 +5,10 @@ Bullet::Bullet(){
 	bAngle = gShip.getA();
 	bPosX = gShip.getX();
 	bPosY = gShip.getY();
-
-/*
-	bTexture = BulletTexture;
-	bWidth = BulletWidth;
-	bHeight = BulletHeight;
-*/
-
 }
 
 Bullet::~Bullet(){
 }
-
-
-/*
-void Bullet::free(){
-	// deallocate texture?
-	if (bTexture != NULL){
-		SDL_DestroyTexture(bTexture);
-	}
-	bTexture = NULL;
-}
-*/
 
 double Bullet::getAngle(){
 	return bAngle;

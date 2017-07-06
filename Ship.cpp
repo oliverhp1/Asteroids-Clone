@@ -59,7 +59,7 @@ void Ship::handleEvent(SDL_Event &e){
 			case SDLK_UP: sVel -= SHIP_VEL; break;		// seems in SDL the y motion direction is flipped.. but not the x
 			case SDLK_LEFT: sOmega -= SHIP_ANG_VEL; break;
 			case SDLK_RIGHT: sOmega += SHIP_ANG_VEL; break;
-			case SDLK_SPACE: Fired.push_back(Bullet()); break;
+			case SDLK_SPACE: Fired.push_back(Bullet()); Mix_PlayChannel(-1,shoot,0); break;		// PLAY SHOOTING SOUND
 		}
 	}
 	else if (e.type == SDL_KEYUP && e.key.repeat == 0){
