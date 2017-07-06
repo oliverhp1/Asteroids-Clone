@@ -1,8 +1,5 @@
 #include "RunGame.h"
 #include "globals.h"
-
-#include "Asteroid.h"
-#include "Bullet.h"
 #include "Ship.h"
 
 

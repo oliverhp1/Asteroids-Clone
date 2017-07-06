@@ -8,7 +8,8 @@
 #include <string>
 #include <math.h>
 
-
+#include "Asteroid.h"
+#include "Bullet.h"
 
 
 bool init();
