@@ -136,7 +136,7 @@ int main(int argc, char* args[]){
 							it0 = Fired.erase(it0);
 
 					// AB FEATURE
-							it1->handleDeath();
+							handleDeath(*it1);
 
 							it1 = Asteroids.erase(it1);
 							isShot = true;

@@ -518,6 +518,36 @@ bool collided(Bullet b1, Asteroid a1){
 	}
 }
 
+// AB FEATURE: create 2 new asteroids or not
+
+void handleDeath(Asteroid a2){
+	if ( (sizeClass > 3) || (sizeClass < 1) ){
+		printf("invalid size\n");
+		return;
+	}
+
+	// geometry- use velocity magnitudes to change direction by +/- 45 degrees
+	int vX = a2.getVelX();
+	int vY = a2.getVelY();
+	int pX = a2.getPosX();
+	int pY = a2.getPosY();
+	double vMag = sqrt(vX*vX + vY*vY);
+	double sinA = vY/vMag;
+	double cosA = vX/vMag;
+	double vMod = vMag/sqrt(2);
+	if (sizeClass == 3){
+		// These are all simplified angle addition expressions
+		Asteroids.push_back(Asteroid(2,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), pX, pY));
+		Asteroids.push_back(Asteroid(2,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), pX, pY));
+		N_ASTEROIDS += 2;
+	}
+	else if (sizeClass == 2){
+		Asteroids.push_back(Asteroid(1,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), pX, pY));
+		Asteroids.push_back(Asteroid(1,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), pX, pY));
+		N_ASTEROIDS += 2;
+	}
+}
+
 bool Scollided(Asteroid a1){	// ship is global: gShip
 	double angle = gShip.getA();
 	angle *= (3.14/180);

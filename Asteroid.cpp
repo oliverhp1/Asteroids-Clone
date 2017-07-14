@@ -70,37 +70,13 @@ int Asteroid::getSize(){
 	return sizeClass;
 }
 
-
-
-// AB FEATURE: create 2 new asteroids or not
-
-void Asteroid::handleDeath(){
-/*	if ( (sizeClass > 3) || (sizeClass < 1) ){
-		printf("invalid size\n");
-		return;
-	}
-*/	
-	// geometry- use velocity magnitudes to change direction by +/- 45 degrees
-	double vMag = sqrt(aVelX*aVelX + aVelY*aVelY);
-	double sinA = aVelY/vMag;
-	double cosA = aVelX/vMag;
-	double vMod = vMag/sqrt(2);
-	if (sizeClass == 3){
-		// These are all simplified angle addition expressions
-		Asteroids.push_back(Asteroid(2,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), aPosX, aPosY));
-		Asteroids.push_back(Asteroid(2,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), aPosX, aPosY));
-		N_ASTEROIDS += 2;
-	}
-	else if (sizeClass == 2){
-		Asteroids.push_back(Asteroid(1,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), aPosX, aPosY));
-		Asteroids.push_back(Asteroid(1,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), aPosX, aPosY));
-		N_ASTEROIDS += 2;
-	}
+int Asteroid::getVelX(){
+	return aVelX;
 }
 
-
-
-
+int Asteroid::getVelY(){
+	return aVelY;
+}
 
 void Asteroid::move(){
 	aPosY -= aVelY;
