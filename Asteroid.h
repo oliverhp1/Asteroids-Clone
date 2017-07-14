@@ -11,6 +11,7 @@
 class Asteroid{
 	public:
 		Asteroid();
+		Asteroid(int,int,int,int,int);
 		~Asteroid();
 
 		static const int screenOffset = 50;
@@ -21,7 +22,6 @@ class Asteroid{
 		int getW();
 		int getH();
 		int getSize();
-
 // AB FEATURE
 		void handleDeath();
 

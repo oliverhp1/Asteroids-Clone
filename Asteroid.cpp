@@ -29,8 +29,8 @@ Asteroid::Asteroid(){
 // AB FEATURE
 
 	sizeClass = 3;		// by default construct 3, shrink to 2 and 1 (med and small respectively)
-	AsteroidWidth = AsteroidWidth0*sizeClass;
-	AsteroidHeight = AsteroidHeight0*sizeClass;
+	AsteroidWidth = AsteroidWidth0*sizeClass/4;
+	AsteroidHeight = AsteroidHeight0*sizeClass/4;
 }
 
 Asteroid::Asteroid(int nSize, int nVelX, int nVelY, int nPosX, int nPosY){	// n stands for new
@@ -45,8 +45,8 @@ Asteroid::Asteroid(int nSize, int nVelX, int nVelY, int nPosX, int nPosY){	// n 
 	sizeClass = nSize;
 
 	aAngle = 0;
-	AsteroidWidth = AsteroidWidth0*sizeClass;
-	AsteroidHeight = AsteroidHeight0*sizeClass;
+	AsteroidWidth = AsteroidWidth0*sizeClass/4;
+	AsteroidHeight = AsteroidHeight0*sizeClass/4;
 }
 
 Asteroid::~Asteroid(){
@@ -76,31 +76,27 @@ int Asteroid::getSize(){
 
 // AB FEATURE: create 2 new asteroids or not
 
-void handleDeath(){
-	if ( (sizeClass > 3) || (sizeClass < 1) ){
-		printf("invalid sizeClass\n");
+void Asteroid::handleDeath(){
+/*	if ( (sizeClass > 3) || (sizeClass < 1) ){
+		printf("invalid size\n");
 		return;
 	}
-
+*/	
 	// geometry- use velocity magnitudes to change direction by +/- 45 degrees
 	double vMag = sqrt(aVelX*aVelX + aVelY*aVelY);
 	double sinA = aVelY/vMag;
 	double cosA = aVelX/vMag;
 	double vMod = vMag/sqrt(2);
-
 	if (sizeClass == 3){
 		// These are all simplified angle addition expressions
-		Asteroids.push_back(Asteroid(2,vMod*(cosA-sinA), vMod*(cosA+sinA), aPosX, aPosY));
-		Asteroids.push_back(Asteroid(2,vMod*(sinA+cosA), vMod*(sinA-cosA), aPosX, aPosY));
+		Asteroids.push_back(Asteroid(2,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), aPosX, aPosY));
+		Asteroids.push_back(Asteroid(2,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), aPosX, aPosY));
 		N_ASTEROIDS += 2;
 	}
 	else if (sizeClass == 2){
-		Asteroids.push_back(Asteroid(1,vMod*(cosA-sinA), vMod*(cosA+sinA), aPosX, aPosY));
-		Asteroids.push_back(Asteroid(1,vMod*(sinA+cosA), vMod*(sinA-cosA), aPosX, aPosY));
+		Asteroids.push_back(Asteroid(1,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), aPosX, aPosY));
+		Asteroids.push_back(Asteroid(1,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), aPosX, aPosY));
 		N_ASTEROIDS += 2;
-	}
-	else{	// size must be 1
-		// EXPLOSION?
 	}
 }
 

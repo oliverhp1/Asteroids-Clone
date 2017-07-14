@@ -149,16 +149,16 @@ int main(int argc, char* args[]){
 						}
 					}
 					
-					if (Scollided(*it1)){
-						showDeath = true;
-						Mix_HaltMusic();		// stop whatever's playing
-						Mix_PlayChannel(-1,shot,0);			// shot explosion sound here?
-						explosion(inferno,infernoRect);		// takes care of loop for explosion animation. also renders everything else
-						loadScore(score);
-						break;
-					}
-				
 					if (!isShot){
+						if (Scollided(*it1)){
+							showDeath = true;
+							Mix_HaltMusic();		// stop whatever's playing
+							Mix_PlayChannel(-1,shot,0);			// shot explosion sound here?
+							explosion(inferno,infernoRect);		// takes care of loop for explosion animation. also renders everything else
+							loadScore(score);
+							break;
+						}
+
 						++it1;		// if shot, iterator already advanced.
 					}
 				}
