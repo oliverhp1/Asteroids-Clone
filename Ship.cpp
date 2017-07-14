@@ -59,6 +59,11 @@ void Ship::handleEvent(SDL_Event &e){
 			case SDLK_UP: sVel -= SHIP_VEL; break;		// seems in SDL the y motion direction is flipped.. but not the x
 			case SDLK_LEFT: sOmega -= SHIP_ANG_VEL; break;
 			case SDLK_RIGHT: sOmega += SHIP_ANG_VEL; break;
+
+// AB FEATURE
+
+			case SDLK_DOWN: sVel += SHIP_VEL; break;
+
 			case SDLK_SPACE: Fired.push_back(Bullet()); Mix_PlayChannel(-1,shoot,0); break;		// PLAY SHOOTING SOUND
 		}
 	}
@@ -67,6 +72,7 @@ void Ship::handleEvent(SDL_Event &e){
 			case SDLK_UP: sVel += SHIP_VEL; break;
 			case SDLK_LEFT: sOmega += SHIP_ANG_VEL; break;
 			case SDLK_RIGHT: sOmega -= SHIP_ANG_VEL; break;
+			case SDLK_DOWN: sVel -= SHIP_VEL; break;
 		}
 	}
 }
@@ -80,12 +86,19 @@ void Ship::move(){
 	sPosY += ceil(sVel*cosx);
 	sPosX -= ceil(sVel*sinx);	// counterintuitive, but these are since angle is defined relative to North (y axis)
 
-	if ( (sPosX < 0) || (sPosX > SCREEN_WIDTH) ){
-		sPosX += sVel*sinx;
+// AB FEATURE: if ship off the screen, stick it on the other side of the screen. the angle remains unchanged
+// defined a new class attribute, offscreen, # of pixels before it gets transported
+	if (sPosX < -1*offScreen){
+		sPosX = SCREEN_WIDTH + offScreen;
 	}
-
-	if ( (sPosY < 0) || (sPosY > SCREEN_HEIGHT) ){
-		sPosY -= sVel*cosx;
+ 	else if (sPosX > SCREEN_WIDTH + offScreen){
+		sPosX = -1*offScreen; 
+	}
+	else if (sPosY < -1*offScreen){
+		sPosY = SCREEN_HEIGHT + offScreen;
+	}
+	else if (sPosY > SCREEN_HEIGHT + offScreen){
+		sPosY = -1*offScreen;
 	}
 }
 

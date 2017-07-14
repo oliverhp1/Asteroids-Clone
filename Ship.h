@@ -15,6 +15,7 @@ class Ship{
 		~Ship();
 		static const int SHIP_VEL = 15;
 		static const int SHIP_ANG_VEL = 10;
+		static const int offScreen = 20;		// AB FEATURE
 
 		bool loadFromFile( std::string path );
 		void free();
