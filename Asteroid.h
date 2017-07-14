@@ -19,11 +19,11 @@ class Asteroid{
 		
 		int getPosX();
 		int getPosY();
+		int getVelX();
+		int getVelY();
 		int getW();
 		int getH();
 		int getSize();
-// AB FEATURE
-		void handleDeath();
 
 		void render();
 
