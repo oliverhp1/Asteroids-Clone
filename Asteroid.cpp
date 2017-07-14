@@ -25,9 +25,7 @@ Asteroid::Asteroid(){
 	}
 	aAngle = 0;
 	
-
 // AB FEATURE
-
 	sizeClass = 3;		// by default construct 3, shrink to 2 and 1 (med and small respectively)
 	AsteroidWidth = AsteroidWidth0*sizeClass/4;
 	AsteroidHeight = AsteroidHeight0*sizeClass/4;
@@ -36,7 +34,7 @@ Asteroid::Asteroid(){
 Asteroid::Asteroid(int nSize, int nVelX, int nVelY, int nPosX, int nPosY){	// n stands for new
 
 	int rand_i = 2*(rand()%2)-1;	// for random rotation: randomly generate 1 or -1
-	aOmega = (rand()%10) * AsteroidVelocityScale * rand_i;
+	aOmega = (rand()%10) * AsteroidVelocityScale; // * rand_i;
 
 	aPosX = nPosX;
 	aPosY = nPosY;
