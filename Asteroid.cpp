@@ -25,10 +25,28 @@ Asteroid::Asteroid(){
 	}
 	aAngle = 0;
 	
-	// now for the scaling
-	int nScale = rand()%6+1;	//multiply by this and divide by 4
-	AsteroidWidth = AsteroidWidth0*nScale/4;
-	AsteroidHeight = AsteroidHeight0*nScale/4;
+
+// AB FEATURE
+
+	sizeClass = 3;		// by default construct 3, shrink to 2 and 1 (med and small respectively)
+	AsteroidWidth = AsteroidWidth0*sizeClass;
+	AsteroidHeight = AsteroidHeight0*sizeClass;
+}
+
+Asteroid::Asteroid(int nSize, int nVelX, int nVelY, int nPosX, int nPosY){	// n stands for new
+
+	int rand_i = 2*(rand()%2)-1;	// for random rotation: randomly generate 1 or -1
+	aOmega = (rand()%10) * AsteroidVelocityScale * rand_i;
+
+	aPosX = nPosX;
+	aPosY = nPosY;
+	aVelX = nVelX;
+	aVelY = nVelY;
+	sizeClass = nSize;
+
+	aAngle = 0;
+	AsteroidWidth = AsteroidWidth0*sizeClass;
+	AsteroidHeight = AsteroidHeight0*sizeClass;
 }
 
 Asteroid::~Asteroid(){
@@ -49,6 +67,46 @@ int Asteroid::getW(){
 int Asteroid::getH(){
 	return AsteroidHeight;
 }
+
+int Asteroid::getSize(){
+	return sizeClass;
+}
+
+
+
+// AB FEATURE: create 2 new asteroids or not
+
+void handleDeath(){
+	if ( (sizeClass > 3) || (sizeClass < 1) ){
+		printf("invalid sizeClass\n");
+		return;
+	}
+
+	// geometry- use velocity magnitudes to change direction by +/- 45 degrees
+	double vMag = sqrt(aVelX*aVelX + aVelY*aVelY);
+	double sinA = aVelY/vMag;
+	double cosA = aVelX/vMag;
+	double vMod = vMag/sqrt(2);
+
+	if (sizeClass == 3){
+		// These are all simplified angle addition expressions
+		Asteroids.push_back(Asteroid(2,vMod*(cosA-sinA), vMod*(cosA+sinA), aPosX, aPosY));
+		Asteroids.push_back(Asteroid(2,vMod*(sinA+cosA), vMod*(sinA-cosA), aPosX, aPosY));
+		N_ASTEROIDS += 2;
+	}
+	else if (sizeClass == 2){
+		Asteroids.push_back(Asteroid(1,vMod*(cosA-sinA), vMod*(cosA+sinA), aPosX, aPosY));
+		Asteroids.push_back(Asteroid(1,vMod*(sinA+cosA), vMod*(sinA-cosA), aPosX, aPosY));
+		N_ASTEROIDS += 2;
+	}
+	else{	// size must be 1
+		// EXPLOSION?
+	}
+}
+
+
+
+
 
 void Asteroid::move(){
 	aPosY -= aVelY;

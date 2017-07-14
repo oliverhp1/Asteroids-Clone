@@ -134,6 +134,10 @@ int main(int argc, char* args[]){
 					for (std::vector<Bullet>::iterator it0 = Fired.begin(); it0 != Fired.end(); ){
 						if (collided(*it0, *it1)){		// dereference iterators before sticking into function
 							it0 = Fired.erase(it0);
+
+					// AB FEATURE
+							it1->handleDeath();
+
 							it1 = Asteroids.erase(it1);
 							isShot = true;
 							N_ASTEROIDS--;
