@@ -21,6 +21,7 @@ extern int AsteroidVelocityScale;
 extern int score;
 extern int numExplosions;
 extern std::vector<Asteroid> Asteroids;
+extern std::vector<Asteroid> ExtraAsteroids;
 
 extern int AsteroidWidth0, AsteroidHeight0, BulletWidth, BulletHeight, ExplosionWidth, ExplosionHeight, InfernoWidth, InfernoHeight;
 

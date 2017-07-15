@@ -60,7 +60,7 @@ int main(int argc, char* args[]){
 					SDL_Delay(5500);
 					showInferno = false;
 					inferno = true;
-					AsteroidVelocityScale = 6;
+					AsteroidVelocityScale = 4;
 				}
 
 				while (showDeath){		// death menu
@@ -161,6 +161,13 @@ int main(int argc, char* args[]){
 
 						++it1;		// if shot, iterator already advanced.
 					}
+				}
+
+			// AB FEATURE- add all the queue'd asteroids here
+
+				for (std::vector<Asteroid>::iterator extraRock = ExtraAsteroids.begin(); extraRock != ExtraAsteroids.end(); ){
+					Asteroids.push_back(*extraRock);
+					extraRock = ExtraAsteroids.erase(extraRock);
 				}
 
 				if (showDeath){

@@ -3,12 +3,13 @@
 const int SCREEN_WIDTH = 960;
 const int SCREEN_HEIGHT = 720;
 
-int MAX_N_ASTEROIDS = 8;
+int MAX_N_ASTEROIDS = 6;
 int N_ASTEROIDS = 0;
 int AsteroidVelocityScale = 1;
 int score = 0;
 int numExplosions = 8;
 std::vector<Asteroid> Asteroids;
+std::vector<Asteroid> ExtraAsteroids;
 
 int AsteroidWidth0 = 0;
 int AsteroidHeight0 = 0;

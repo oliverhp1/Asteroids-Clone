@@ -521,7 +521,9 @@ bool collided(Bullet b1, Asteroid a1){
 // AB FEATURE: create 2 new asteroids or not
 
 void handleDeath(Asteroid a2){
-	if ( (sizeClass > 3) || (sizeClass < 1) ){
+	int sizeClass1 = a2.getSize();
+
+	if ( (sizeClass1 > 3) || (sizeClass1 < 1) ){
 		printf("invalid size\n");
 		return;
 	}
@@ -535,15 +537,15 @@ void handleDeath(Asteroid a2){
 	double sinA = vY/vMag;
 	double cosA = vX/vMag;
 	double vMod = vMag/sqrt(2);
-	if (sizeClass == 3){
+	if (sizeClass1 == 3){
 		// These are all simplified angle addition expressions
-		Asteroids.push_back(Asteroid(2,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), pX, pY));
-		Asteroids.push_back(Asteroid(2,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), pX, pY));
+		ExtraAsteroids.push_back(Asteroid(2,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), pX, pY));
+		ExtraAsteroids.push_back(Asteroid(2,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), pX, pY));
 		N_ASTEROIDS += 2;
 	}
-	else if (sizeClass == 2){
-		Asteroids.push_back(Asteroid(1,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), pX, pY));
-		Asteroids.push_back(Asteroid(1,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), pX, pY));
+	else if (sizeClass1 == 2){
+		ExtraAsteroids.push_back(Asteroid(1,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), pX, pY));
+		ExtraAsteroids.push_back(Asteroid(1,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), pX, pY));
 		N_ASTEROIDS += 2;
 	}
 }
@@ -591,7 +593,7 @@ void resetGame(){
 	// clear asteroids, bullets, put ship back at mid screen, set score = 0
 	score = 0;
 	gShip.resetPosition();
-	MAX_N_ASTEROIDS = 8;
+	MAX_N_ASTEROIDS = 6;
 	N_ASTEROIDS = 0;
 	AsteroidVelocityScale = 1;
 
