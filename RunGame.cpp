@@ -460,29 +460,30 @@ bool loadExplosion(){
 
 
 	// AB FEATURE: LOAD SPRITESHEET FOR ASTEROID EXPLOSIONS
+	SDL_Surface* loadSurface4 = NULL;
 	std::string pathF = "images/asteroid_explosion.png";
-	loadSurface3 = IMG_Load(pathF.c_str());
-	if (loadSurface3 == NULL){
+	loadSurface4 = IMG_Load(pathF.c_str());
+	if (loadSurface4 == NULL){
 		printf("load asteroid explosion error: %s\n", IMG_GetError());
 		success = false;
 	}
 	else{
-		AsteroidExplosionWidth = loadSurface3->w;
-		AsteroidExplosionHeight = loadSurface3->h;
-		AsteroidExplosionWidth = AsteroidExplosionWidth/numExplosions+1;
+		AsteroidExplosionWidth = loadSurface4->w;
+		AsteroidExplosionHeight = loadSurface4->h;
+		AsteroidExplosionWidth = AsteroidExplosionWidth/numAsteroidExplosions+1;
 
-		AsteroidExplosionSpriteSheet = SDL_CreateTextureFromSurface(gRenderer, loadSurface3);
+		AsteroidExplosionSpriteSheet = SDL_CreateTextureFromSurface(gRenderer, loadSurface4);
 		if (AsteroidExplosionSpriteSheet == NULL){
 			printf("explosion spritesheet texture error: %s\n", SDL_GetError() );
 			success = false;
 		}
-		SDL_FreeSurface(loadSurface3);
-		loadSurface3 = NULL;
+		SDL_FreeSurface(loadSurface4);
+		loadSurface4 = NULL;
 	}
-	tempRect3 = {0,0,0,0};
+	SDL_Rect tempRect4 = {0,0,0,0};
 	for (int z = 0; z < numAsteroidExplosions; z++){
-		tempRect3 = {z*AsteroidExplosionWidth, 0, AsteroidExplosionWidth, AsteroidExplosionHeight};
-		AsteroidExplosionClips[z] = tempRect3;
+		tempRect4 = {z*AsteroidExplosionWidth, 0, AsteroidExplosionWidth, AsteroidExplosionHeight};
+		AsteroidExplosionClips[z] = tempRect4;
 	}
 
 
@@ -491,7 +492,7 @@ bool loadExplosion(){
 
 void renderExplosions(){
 	// RENDER EXPLOSIONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	for (int t = numAsteroidExplosions-1; t != 0; t--){
+	for (int t = numAsteroidExplosions-1; t >= 0; t--){
 		if (t == numAsteroidExplosions-1){
 			for (std::vector<SDL_Rect>::iterator dstRect = rockExplosions[t].begin(); dstRect != rockExplosions[t].end(); ){
 				SDL_RenderCopy(gRenderer, AsteroidExplosionSpriteSheet, &AsteroidExplosionClips[t],&(*dstRect));	// weird notation: deref iterator, give address

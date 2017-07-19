@@ -180,10 +180,11 @@ int main(int argc, char* args[]){
 					rockExplosions[0].push_back(*extraExplosion);
 					extraExplosion = tempExplosionQueue.erase(extraExplosion);
 				}
+				printf(rockExplosions[0].size());
 
 // all drawing: background, rocks, explosions, bullets, ship.
 				SDL_RenderClear(gRenderer);		// clear screen
-				
+
 				renderExplosions();
 
 				renderAll(inferno,/*backgroundRect,*/infernoRect);		// comment out background for normal play
