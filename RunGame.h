@@ -25,6 +25,8 @@ void loadScore(int);
 void loadDeathScreen();
 void handleDeath(Asteroid);
 
+// AB FEATURE: function to handle all rock explosions
+void renderExplosions();
 void renderAll(bool,/*SDL_Rect,*/SDL_Rect);		// comment out background for normal play
 
 bool loadExplosion();

@@ -20,10 +20,12 @@ extern int N_ASTEROIDS;
 extern int AsteroidVelocityScale;
 extern int score;
 extern int numExplosions;
+extern int numAsteroidExplosions;
+
 extern std::vector<Asteroid> Asteroids;
 extern std::vector<Asteroid> ExtraAsteroids;
 
-extern int AsteroidWidth0, AsteroidHeight0, BulletWidth, BulletHeight, ExplosionWidth, ExplosionHeight, InfernoWidth, InfernoHeight;
+extern int AsteroidWidth0, AsteroidHeight0, BulletWidth, BulletHeight, AsteroidExplosionWidth, AsteroidExplosionHeight, ExplosionWidth, ExplosionHeight, InfernoWidth, InfernoHeight;
 
 
 extern SDL_Texture* AsteroidTexture;
@@ -31,8 +33,14 @@ extern SDL_Texture* BulletTexture;
 extern SDL_Texture* Background;
 extern SDL_Texture* InfernoBackground;
 extern SDL_Texture* ExplosionSpriteSheet;
+extern SDL_Texture* AsteroidExplosionSpriteSheet;
 
-extern SDL_Rect ExplosionClips[8];
+extern SDL_Rect ExplosionClips[8];	// rectangles that split up the spritesheet
+extern SDL_Rect AsteroidExplosionClips[4];
+
+// AB FEATURE: array of vectors containing all explosions and where to render them
+extern std::vector<SDL_Rect> rockExplosions[4];
+extern std::vector<SDL_Rect> tempExplosionQueue;
 
 extern Ship gShip;
 

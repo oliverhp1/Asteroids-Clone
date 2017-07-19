@@ -178,6 +178,13 @@ int main(int argc, char* args[]){
 				// all drawing: background, rocks, bullets, ship.
 				SDL_RenderClear(gRenderer);		// clear screen
 
+				renderExplosions();
+			// AB FEATURE- add all the queue'd explosions here
+				for (std::vector<SDL_Rect>::iterator extraExplosion = tempExplosionQueue.begin(); extraExplosion != tempExplosionQueue.end(); ){
+					RockExplosions[0].push_back(*extraExplosion);
+					extraExplosion = tempExplosionQueue.erase(extraExplosion);
+				}
+
 				renderAll(inferno,/*backgroundRect,*/infernoRect);		// comment out background for normal play
 				gShip.render();			// don't render this in renderAll since we don't want it for the explosion
 				

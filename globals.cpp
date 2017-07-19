@@ -8,6 +8,8 @@ int N_ASTEROIDS = 0;
 int AsteroidVelocityScale = 1;
 int score = 0;
 int numExplosions = 8;
+int numAsteroidExplosions = 4;
+
 std::vector<Asteroid> Asteroids;
 std::vector<Asteroid> ExtraAsteroids;
 
@@ -17,6 +19,8 @@ int BulletWidth = 0;
 int BulletHeight = 0;
 int ExplosionWidth = 0;
 int ExplosionHeight = 0;
+int AsteroidExplosionWidth = 0;
+int AsteroidExplosionHeight = 0;
 int InfernoWidth = 0;
 int InfernoHeight = 0;
 
@@ -25,8 +29,13 @@ SDL_Texture* BulletTexture = NULL;
 SDL_Texture* Background = NULL;
 SDL_Texture* InfernoBackground = NULL;
 SDL_Texture* ExplosionSpriteSheet = NULL;		
+SDL_Texture* AsteroidExplosionSpriteSheet = NULL;		
 
 SDL_Rect ExplosionClips[8] = {};
+SDL_Rect AsteroidExplosionClips[8] = {};
+
+std::vector<SDL_Rect> rockExplosions[4] = {};
+std::vector<SDL_Rect> tempExplosionQueue;
 
 Ship gShip;
 

@@ -456,7 +456,56 @@ bool loadExplosion(){
 		tempRect3 = {m*ExplosionWidth, 0, ExplosionWidth, ExplosionHeight};
 		ExplosionClips[m] = tempRect3;
 	}
+
+
+
+	// AB FEATURE: LOAD SPRITESHEET FOR ASTEROID EXPLOSIONS
+	std::string pathF = "images/asteroid_explosion.png";
+	loadSurface3 = IMG_Load(pathF.c_str());
+	if (loadSurface3 == NULL){
+		printf("load asteroid explosion error: %s\n", IMG_GetError());
+		success = false;
+	}
+	else{
+		AsteroidExplosionWidth = loadSurface3->w;
+		AsteroidExplosionHeight = loadSurface3->h;
+		AsteroidExplosionWidth = AsteroidExplosionWidth/numExplosions+1;			// might cause roundoff error. check this if explosion looks funny
+
+		ExplosionSpriteSheet = SDL_CreateTextureFromSurface(gRenderer, loadSurface3);
+		if (ExplosionSpriteSheet == NULL){
+			printf("explosion spritesheet texture error: %s\n", SDL_GetError() );
+			success = false;
+		}
+		SDL_FreeSurface(loadSurface3);
+		loadSurface3 = NULL;
+	}
+	tempRect3 = {0,0,0,0};
+	for (int z = 0; z < numAsteroidExplosions; z++){		// loading source rectangles
+		tempRect3 = {z*AsteroidExplosionWidth, 0, AsteroidExplosionWidth, AsteroidExplosionHeight};
+		AsteroidExplosionClips[z] = tempRect3;
+	}
+
+
 	return success;
+}
+
+void renderExplosions(){
+	// RENDER EXPLOSIONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	for (int t = numAsteroidExplosions-1; t != 0; t--){
+		if (t == numAsteroidExplosions-1){
+			for (std::vector<SDL_Rect>::iterator dstRect = rockExplosions[t].begin(); dstRect != rockExplosions[t].end(); ){
+				SDL_RenderCopy(gRenderer, AsteroidExplosionSpriteSheet, AsteroidExplosionClips[t],dstRect);
+				dstRect = rockExplosions[t].erase(dstRect);
+			}
+		}
+		else{
+			for (std::vector<SDL_Rect>::iterator dstRect = rockExplosions[t].begin(); dstRect != rockExplosions[t].end();){
+				SDL_RenderCopy(gRenderer, AsteroidExplosionSpriteSheet, AsteroidExplosionClips[t],dstRect);
+				rockExplosions[t+1].push_back(*dstRect);
+				dstRect = rockExplosions[t].erase(dstRect);
+			}
+		}
+	}
 }
 
 void renderAll(bool inferno, /*SDL_Rect backgroundRect,*/ SDL_Rect infernoRect){
@@ -547,6 +596,10 @@ void handleDeath(Asteroid a2){
 		ExtraAsteroids.push_back(Asteroid(1,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), pX, pY));
 		ExtraAsteroids.push_back(Asteroid(1,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), pX, pY));
 		N_ASTEROIDS += 2;
+	}
+	else{		// if we get here, size == 1, meaning we stick a rectangle into the temp queue
+		SDL_Rect tempRect4 = {a2.getPosX()-AsteroidExplosionWidth/2,a2.getPosY()-AsteroidExplosionHeight/2,AsteroidExplosionWidth,AsteroidExplosionHeight};
+		tempExplosionQueue.push_back(tempRect4);
 	}
 }
 
