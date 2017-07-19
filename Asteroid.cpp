@@ -25,9 +25,7 @@ Asteroid::Asteroid(){
 	}
 	aAngle = 0;
 	
-
 // AB FEATURE
-
 	sizeClass = 3;		// by default construct 3, shrink to 2 and 1 (med and small respectively)
 	AsteroidWidth = AsteroidWidth0*sizeClass/4;
 	AsteroidHeight = AsteroidHeight0*sizeClass/4;

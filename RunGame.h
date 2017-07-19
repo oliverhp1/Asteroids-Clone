@@ -23,6 +23,7 @@ void handleInferno(SDL_Rect);
 void loadMainMenu();
 void loadScore(int);
 void loadDeathScreen();
+void handleDeath(Asteroid);
 
 void renderAll(bool,/*SDL_Rect,*/SDL_Rect);		// comment out background for normal play
 
