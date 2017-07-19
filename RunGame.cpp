@@ -494,13 +494,13 @@ void renderExplosions(){
 	for (int t = numAsteroidExplosions-1; t != 0; t--){
 		if (t == numAsteroidExplosions-1){
 			for (std::vector<SDL_Rect>::iterator dstRect = rockExplosions[t].begin(); dstRect != rockExplosions[t].end(); ){
-				SDL_RenderCopy(gRenderer, AsteroidExplosionSpriteSheet, AsteroidExplosionClips[t],dstRect);
+				SDL_RenderCopy(gRenderer, AsteroidExplosionSpriteSheet, &AsteroidExplosionClips[t],&(*dstRect));	// weird notation: deref iterator, give address
 				dstRect = rockExplosions[t].erase(dstRect);
 			}
 		}
 		else{
 			for (std::vector<SDL_Rect>::iterator dstRect = rockExplosions[t].begin(); dstRect != rockExplosions[t].end();){
-				SDL_RenderCopy(gRenderer, AsteroidExplosionSpriteSheet, AsteroidExplosionClips[t],dstRect);
+				SDL_RenderCopy(gRenderer, AsteroidExplosionSpriteSheet, &AsteroidExplosionClips[t],&(*dstRect));
 				rockExplosions[t+1].push_back(*dstRect);
 				dstRect = rockExplosions[t].erase(dstRect);
 			}

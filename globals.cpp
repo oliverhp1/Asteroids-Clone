@@ -32,7 +32,7 @@ SDL_Texture* ExplosionSpriteSheet = NULL;
 SDL_Texture* AsteroidExplosionSpriteSheet = NULL;		
 
 SDL_Rect ExplosionClips[8] = {};
-SDL_Rect AsteroidExplosionClips[8] = {};
+SDL_Rect AsteroidExplosionClips[4] = {};
 
 std::vector<SDL_Rect> rockExplosions[4] = {};
 std::vector<SDL_Rect> tempExplosionQueue;

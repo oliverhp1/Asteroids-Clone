@@ -181,7 +181,7 @@ int main(int argc, char* args[]){
 				renderExplosions();
 			// AB FEATURE- add all the queue'd explosions here
 				for (std::vector<SDL_Rect>::iterator extraExplosion = tempExplosionQueue.begin(); extraExplosion != tempExplosionQueue.end(); ){
-					RockExplosions[0].push_back(*extraExplosion);
+					rockExplosions[0].push_back(*extraExplosion);
 					extraExplosion = tempExplosionQueue.erase(extraExplosion);
 				}
 
