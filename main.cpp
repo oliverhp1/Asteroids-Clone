@@ -180,7 +180,7 @@ int main(int argc, char* args[]){
 					rockExplosions[0].push_back(*extraExplosion);
 					extraExplosion = tempExplosionQueue.erase(extraExplosion);
 				}
-				printf(rockExplosions[0].size());
+				//printf("%lu\n",rockExplosions[0].size());	 //for debugging: size of first vector in explosion array
 
 // all drawing: background, rocks, explosions, bullets, ship.
 				SDL_RenderClear(gRenderer);		// clear screen
