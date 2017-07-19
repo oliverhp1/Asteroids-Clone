@@ -469,10 +469,10 @@ bool loadExplosion(){
 	else{
 		AsteroidExplosionWidth = loadSurface3->w;
 		AsteroidExplosionHeight = loadSurface3->h;
-		AsteroidExplosionWidth = AsteroidExplosionWidth/numExplosions+1;			// might cause roundoff error. check this if explosion looks funny
+		AsteroidExplosionWidth = AsteroidExplosionWidth/numExplosions+1;
 
-		ExplosionSpriteSheet = SDL_CreateTextureFromSurface(gRenderer, loadSurface3);
-		if (ExplosionSpriteSheet == NULL){
+		AsteroidExplosionSpriteSheet = SDL_CreateTextureFromSurface(gRenderer, loadSurface3);
+		if (AsteroidExplosionSpriteSheet == NULL){
 			printf("explosion spritesheet texture error: %s\n", SDL_GetError() );
 			success = false;
 		}
@@ -480,7 +480,7 @@ bool loadExplosion(){
 		loadSurface3 = NULL;
 	}
 	tempRect3 = {0,0,0,0};
-	for (int z = 0; z < numAsteroidExplosions; z++){		// loading source rectangles
+	for (int z = 0; z < numAsteroidExplosions; z++){
 		tempRect3 = {z*AsteroidExplosionWidth, 0, AsteroidExplosionWidth, AsteroidExplosionHeight};
 		AsteroidExplosionClips[z] = tempRect3;
 	}
