@@ -60,7 +60,7 @@ Mix_Music* infernoMusic = NULL;
 Mix_Music* deathMusic = NULL;
 Mix_Chunk* shoot = NULL;
 Mix_Chunk* shot = NULL;
-
+Mix_Chunk* asteroidExplode = NULL;
 
 SDL_Color mainColor = {192,192,192};	// silver
 SDL_Color mainColorH = {123,104,238};	// medium slate blue

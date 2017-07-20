@@ -152,6 +152,7 @@ int main(int argc, char* args[]){
 					if (!isShot){
 						if (Scollided(*it1)){
 							showDeath = true;
+							plusDifficulty = false;
 							Mix_HaltMusic();		// stop whatever's playing
 							Mix_PlayChannel(-1,shot,0);			// shot explosion sound here?
 							explosion(inferno,infernoRect);		// takes care of loop for explosion animation. also renders everything else

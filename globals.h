@@ -65,6 +65,7 @@ extern Mix_Music* infernoMusic;
 extern Mix_Music* deathMusic;
 extern Mix_Chunk* shoot;
 extern Mix_Chunk* shot;
+extern Mix_Chunk* asteroidExplode;
 
 extern SDL_Color mainColor;		// silver ish.  Also use this color for death screen selecting
 extern SDL_Color mainColorH;	// metallic blue? but not too close to cyan

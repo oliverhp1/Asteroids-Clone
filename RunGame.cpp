@@ -191,6 +191,8 @@ bool loadMedia(){		// load global textures for asteroid and bullet, background a
 	if (shoot == NULL){printf("couldn't load shoot sound, error: %s\n",Mix_GetError()); success = false;}
 	shot = Mix_LoadWAV("sounds/explosion.wav");
 	if (shot == NULL){printf("couldn't load shot sound, error: %s\n",Mix_GetError()); success = false;}
+	asteroidExplode = Mix_LoadWAV("sounds/rockExplosion.wav");
+	if (asteroidExplode == NULL){printf("couldn't load shot sound, error: %s\n",Mix_GetError()); success = false;}
 
 	// load main menu and death menu textures, and explosion sprite sheet
 	loadMainMenu();
@@ -601,6 +603,7 @@ void handleDeath(Asteroid a2){
 	else{		// if we get here, size == 1, meaning we stick a rectangle into the temp queue
 		SDL_Rect tempRect4 = {a2.getPosX()-AsteroidExplosionWidth/2,a2.getPosY()-AsteroidExplosionHeight/2,AsteroidExplosionWidth,AsteroidExplosionHeight};
 		tempExplosionQueue.push_back(tempRect4);
+		Mix_PlayChannel(-1,asteroidExplode,0);		// explosion sound only if small rock
 	}
 }
 
