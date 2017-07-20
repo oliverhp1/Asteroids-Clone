@@ -591,19 +591,21 @@ void handleDeath(Asteroid a2){
 	double vMod = vMag/sqrt(2);
 	if (sizeClass1 == 3){
 		// These are all simplified angle addition expressions
+		Mix_PlayChannel(-1,asteroidExplode,0);		
 		ExtraAsteroids.push_back(Asteroid(2,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), pX, pY));
 		ExtraAsteroids.push_back(Asteroid(2,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), pX, pY));
 		N_ASTEROIDS += 2;
 	}
 	else if (sizeClass1 == 2){
+		Mix_PlayChannel(-1,asteroidExplode,0);		
 		ExtraAsteroids.push_back(Asteroid(1,(int) (vMod*(cosA-sinA)), (int) (vMod*(cosA+sinA)), pX, pY));
 		ExtraAsteroids.push_back(Asteroid(1,(int) (vMod*(sinA+cosA)), (int) (vMod*(sinA-cosA)), pX, pY));
 		N_ASTEROIDS += 2;
 	}
 	else{		// if we get here, size == 1, meaning we stick a rectangle into the temp queue
+		Mix_PlayChannel(-1,asteroidExplode,0);		
 		SDL_Rect tempRect4 = {a2.getPosX()-AsteroidExplosionWidth/2,a2.getPosY()-AsteroidExplosionHeight/2,AsteroidExplosionWidth,AsteroidExplosionHeight};
 		tempExplosionQueue.push_back(tempRect4);
-		Mix_PlayChannel(-1,asteroidExplode,0);		// explosion sound only if small rock
 	}
 }
 

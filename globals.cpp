@@ -35,7 +35,7 @@ SDL_Rect ExplosionClips[8] = {};
 SDL_Rect AsteroidExplosionClips[4] = {};
 
 std::vector<SDL_Rect> rockExplosions[4] = {};
-std::vector<SDL_Rect> tempExplosionQueue;
+std::vector<SDL_Rect> tempExplosionQueue = {};
 
 Ship gShip;
 
