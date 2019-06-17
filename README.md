@@ -6,7 +6,6 @@ Install SDL2 and image, true type font, and mixer (audio) development libraries:
 ## For MAC OS X:
 Install homebrew, then:
 ```
-brew install 
 brew install sdl2
 brew install sdl2_image
 brew install sdl2_ttf
